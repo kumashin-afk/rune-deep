@@ -1948,11 +1948,12 @@ const MAGIC_PREFIX = { atk: '猛き', atkPct: '猛き', hp: '頑強な', hpPct: 
   fireDmg: '炎熱の', iceDmg: '氷結の', boltDmg: '雷光の', poisonDmg: '猛毒の', conv_fire: '燃える', conv_ice: '凍える', conv_bolt: '帯電した', conv_poison: '毒塗りの', lifesteal: '吸血の', mf: '幸運の', gold: '黄金の', statusChance: '蝕む', reaction: '共鳴する' };
 
 // レア度の重み（コモン・マジック・レア・エピック・レジェンド・セット）。ドロップ品質で、レア以上が (1＋ドロップ品質) 倍になる
-const RAR_W = [48, 33, 12, 0.41, 0.085, 0.16];      // 地下で拾う品：エピックは普通の階でおよそ5階に1つ（レジェンド・セットも同じ割合）
-const RAR_W_APPRAISE = [48, 33, 12, 3.6, 0.75, 1.4]; // 遺物の鑑定：遺物そのものが出にくい分、中身は良い
-// 地下で拾う品のレア以下（コモン・マジック・レア）は、昔のレア度の比率をエピック（およそ5階に1つ）に当てはめた数になるよう間引く
-const DROP_KEEP = [0.2, 0.2, 0.114];
-function rollDrop(il, o = {}) { const r = rollRarity(o.mf || 0); if (r < 3 && rnd() >= DROP_KEEP[r]) return null; return genItem(il, Object.assign({}, o, { rarity: r })); }
+// 地下で拾う品・宝箱・遺物の鑑定・商人の箱は、どれも同じ重み（v84までの比率）
+const RAR_W = [48, 33, 12, 3.6, 0.75, 1.4];
+const RAR_W_APPRAISE = RAR_W;
+// 敵が落とす装備の数の倍率：普通の階で、敵からのエピックがおよそ1階に1つになるように（ボスは別）
+const ENEMY_DROP_K = 1.14;
+function rollDrop(il, o = {}) { return genItem(il, Object.assign({}, o, { rarity: rollRarity(o.mf || 0) })); }
 function rollRarity(mf, W) {
   const m = 1 + mf, B = W || RAR_W;
   const w = [B[0], B[1], B[2] * m, B[3] * m, B[4] * m, B[5] * m];
@@ -5756,7 +5757,7 @@ function killEnemy(e, m, elem) {
 function dropLoot(e) {
   const run = G.run, prefCls = G.save.party.map(p => p.cls);
   const deep = isDeep(run.floor);
-  const n = e.boss ? 5 : e.elite ? (deep ? 3 : 2) : e.type === 'mimic' ? 3 : (rnd() < (deep ? 0.2 : 0.15) ? 1 : 0);
+  const nb = e.elite ? (deep ? 3 : 2) : e.type === 'mimic' ? 3 : (deep ? 0.2 : 0.15), nk = nb * ENEMY_DROP_K, n = e.boss ? 5 : Math.floor(nk) + (rnd() < nk % 1 ? 1 : 0); // ボス以外は数を ENEMY_DROP_K 倍（端数は確率で）
   const mf = partyMf() + (e.elite ? 0.8 : 0) + (e.boss ? 2.5 : 0) + (e.type === 'mimic' ? 2 : 0) + (deep ? 1.5 : 0);
   const il = Math.max(1, e.lvl) + (e.boss ? randInt(1, 2) : 0);
   const items = []; for (let i = 0; i < n; i++) { const it = rollDrop(il, { mf, prefCls, deep }); if (it) items.push(it); }
@@ -6035,7 +6036,7 @@ function breakObj(b, m, elem) {
   if (b.k === 'candelabra') { addText(b.x, 2.6, b.z, '火柱', '#ff9a4a', 1.1); for (let i = 0; i < 6; i++) { const a = i / 6 * 6.28, x = b.x + Math.cos(a) * 2, z = b.z + Math.sin(a) * 2; later(0.05 * i, () => { run.fx.push({ k: 'pillar', x, z, t: 0, dur: 0.7, col: 0xff7a2a }); for (const e of enemiesNear(x, z, 1.2)) dealHit(w, e, 1.5, 'fire', { quietSfx: true, noMp: true, forceStatus: true }); igniteAt(x, z, 1, w); }); } SFX.play('fire', { x: b.x, z: b.z }); return; }
   if (b.k === 'crate' && !run.town && rnd() < 0.15) { const e = makeEnemy('roach', b.x, b.z, Math.max(1, run.floor), {}); e.aggro = true; run.enemies.push(e); addText(b.x, 2.4, b.z, '中から何かが！', '#ff9a4a', 1); return; }
   const r = rnd();
-  if (b.k === 'icecube' || r < 0.1) { const it = rollDrop(Math.max(1, run.floor || G.save.maxFloor), { mf: partyMf(), prefCls: G.save.party.map(p => p.cls), deep: isDeep(run.floor || 0) }); if (it) { spill([it], b.x, b.z); return; } if (b.k === 'icecube') return; } // 装備が出なかったときは小銭
+  if (b.k === 'icecube' || r < 0.1) { const it = rollDrop(Math.max(1, run.floor || G.save.maxFloor), { mf: partyMf(), prefCls: G.save.party.map(p => p.cls), deep: isDeep(run.floor || 0) }); spill([it], b.x, b.z); return; }
   if (r < 0.45) scatterGold(b.x, b.z, Math.round((3 + rnd() * 6) * Math.pow(1.1, Math.max(1, run.floor) - 1)), { n: randInt(1, 2), spread: 2 });
   else if (r < 0.62 || b.k === 'urn') run.loot.push({ cons: b.k === 'urn' ? (rnd() < 0.6 ? 'potion' : 'ether') : pick(['potion', 'ether', 'bomb']), x: b.x, z: b.z, t: 0 });
 }
