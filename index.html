@@ -366,7 +366,11 @@ button.big{padding:12px 26px;font-size:16px;} button.big small{display:block;fon
 .eq-l{overflow:auto;min-height:0;gap:8px !important;padding-right:2px;}
 .eq-l .cport{width:64px;height:64px;}
 .eq-l .slot{padding:6px 8px;} .slot.sel{outline:2px solid var(--brass2);outline-offset:1px;}
-.stbox{background:#12161e;border:1px solid var(--line);border-radius:5px;padding:6px 10px;} .stbox summary{cursor:pointer;font-size:12.5px;color:var(--brass2);font-weight:700;padding:2px 0;} .stbox[open] summary{margin-bottom:6px;}
+.stbox{background:#12161e;border:1px solid var(--line);border-radius:5px;padding:6px 10px;}
+.fxl{display:flex;flex-direction:column;gap:3px;margin:0 0 8px;padding-bottom:7px;border-bottom:1px solid var(--line);} .fxh{font-size:11.5px;color:var(--mute);margin-bottom:1px;} .fxnone{font-size:12px;color:var(--mute);}
+.fxr{display:flex;align-items:baseline;gap:6px;font-size:12px;line-height:1.45;flex-wrap:wrap;padding-right:3px;} .fxr i{font-style:normal;font-size:10.5px;font-weight:800;line-height:15px;color:#141414;background:var(--c);border-radius:3px;padding:0 4px;flex:none;align-self:center;}
+.fxr b{color:#bfe8b0;font-weight:700;flex:none;} .fxr.bad b{color:#ffb0a0;} .fxr span{color:var(--text);flex:1;min-width:120px;} .fxr small{color:var(--mute);font-size:11px;flex:none;white-space:nowrap;margin-left:auto;}
+.fxnote{font-size:10.5px;color:var(--mute);margin-top:2px;} .stbox summary .fxcnt{margin-left:8px;font-size:11px;font-weight:700;color:#141414;background:#bfe8b0;border-radius:8px;padding:0 6px;} .stbox summary{cursor:pointer;font-size:12.5px;color:var(--brass2);font-weight:700;padding:2px 0;} .stbox[open] summary{margin-bottom:6px;}
 .eq-r{min-height:0;overflow:hidden;}
 .eq-r .grid{grid-template-columns:repeat(auto-fill,minmax(58px,1fr));gap:6px;}
 .ghint{font-size:11px;color:var(--dim);text-align:center;}
@@ -415,6 +419,23 @@ body.touch{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
 body.touch button{touch-action:manipulation;}
 body.touch #hud button,body.touch #hud #prompt{touch-action:none;}
 body.touch kbd{display:none;}
+/* ゲームパッドで遊んでいる時：キーの表示をボタンの記号に、カーソル（選択中の枠）を金色に、マウスの矢印は隠す */
+body:not(.pad) .padonly{display:none !important;} body.pad .kbonly{display:none !important;}
+body.pad, body.pad *{cursor:none !important;}
+body.pad #menu *, body.pad #title *{pointer-events:none !important;}
+body.pad .padf{outline:3px solid #f0c060 !important;outline-offset:1px;box-shadow:0 0 0 6px rgba(240,192,96,.2),0 0 20px rgba(240,192,96,.35) !important;}
+body.pad kbd[data-pad]{font-size:0 !important;padding:0 !important;min-width:0 !important;border:0 !important;background:none !important;line-height:0;vertical-align:-4px;}
+body.pad kbd[data-pad]::before{content:attr(data-pad);display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;height:18px;min-width:18px;padding:0 4px;border-radius:9px;font:800 10.5px/1 var(--ui);letter-spacing:0;color:#f4f0e6;background:#2c3342;box-shadow:inset 0 -2px 0 rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.14);}
+body.pad kbd[data-pad="A"]::before{background:#3a9e52;} body.pad kbd[data-pad="B"]::before{background:#c8443a;} body.pad kbd[data-pad="X"]::before{background:#3a76c8;} body.pad kbd[data-pad="Y"]::before{background:#d6ac34;color:#1a1408;}
+body.pad kbd[data-pad="LB"]::before,body.pad kbd[data-pad="RB"]::before,body.pad kbd[data-pad="LT"]::before,body.pad kbd[data-pad="RT"]::before{border-radius:5px;padding:0 5px;font-size:9.5px;}
+body.pad kbd[data-pad="MENU"]::before{content:'≡';font-size:14px;} body.pad kbd[data-pad="VIEW"]::before{content:'▣';font-size:11px;}
+body.pad kbd[data-pad="LS"]::before,body.pad kbd[data-pad="RS"]::before{background:radial-gradient(circle,#4a5266 0 45%,#232936 46%);font-size:9.5px;}
+body.pad kbd[data-pad="↑"]::before,body.pad kbd[data-pad="↓"]::before,body.pad kbd[data-pad="←"]::before,body.pad kbd[data-pad="→"]::before{border-radius:4px;min-width:17px;font-size:11px;background:#232936;}
+body.pad .itb kbd[data-pad]{top:-8px;right:-6px;} body.pad #menuBtn kbd[data-pad]{left:1px;top:0;}
+body.pad .ws .wk{display:none;}
+body.pad #wslots{position:relative;margin:0 26px 0 30px;}
+body.pad #wslots::before,body.pad #wslots::after{position:absolute;top:50%;transform:translateY(-50%);display:flex;align-items:center;justify-content:center;height:18px;padding:0 5px;border-radius:5px;font:800 9.5px/1 var(--ui);color:#f4f0e6;background:#2c3342;box-shadow:inset 0 -2px 0 rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.14);}
+body.pad #wslots::before{content:'LB';right:100%;margin-right:6px;} body.pad #wslots::after{content:'RB';left:100%;margin-left:6px;}
 body.touch #log,body.touch #bossbar{pointer-events:none;}
 body.touch #joy{display:block;position:absolute;left:calc(110px + env(safe-area-inset-left));top:calc(100% - 110px);width:124px;height:124px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(10,12,17,.15),rgba(10,12,17,.45));border:2px solid rgba(235,229,214,.22);pointer-events:none !important;opacity:.45;transition:opacity .15s;}
 body.touch #joy.on{opacity:1;transition:none;}
@@ -669,6 +690,8 @@ html body #title.ttop{display:flex;flex-direction:column;align-items:center;just
 .tag2{color:#b8b0a0;font-size:14px;letter-spacing:.06em;margin-top:-2px;}
 .tbox .logo{position:relative;} .tdevb{position:absolute;right:-.2em;top:-.55em;transform:translateX(50%) rotate(8deg);font-family:inherit;font-size:13px;font-weight:800;letter-spacing:.12em;line-height:1;padding:4px 8px;border-radius:4px;background:#c8321e;color:#fff4e0;text-shadow:none;box-shadow:0 2px 6px rgba(0,0,0,.5);}
 .tdev{color:#d8b878;font-size:12px;letter-spacing:.03em;} .tdev span{display:inline-block;}
+.tbtns button.quit{padding:9px 18px;font-size:14px;background:rgba(20,24,33,.6);border-color:var(--line);color:var(--mute);}
+.tver{position:fixed;right:14px;bottom:10px;font-size:11px;color:#6b7384;letter-spacing:.04em;pointer-events:none;}
 .tbtns{display:flex;flex-direction:column;gap:9px;width:min(340px,100%);margin-top:8px;}
 .tbtns button{display:flex;flex-direction:column;align-items:center;gap:3px;padding:13px 18px;font-size:17px;font-weight:700;background:#1e2430;border:1px solid var(--line2);border-radius:7px;color:var(--text);}
 .tbtns button.pri{background:linear-gradient(#e0b050,#b8862e);border-color:#f0c870;color:#1a1206;}
@@ -755,7 +778,7 @@ body.touch #qtrack{top:124px;right:calc(8px + env(safe-area-inset-right));width:
     <div id="dch" hidden></div>
     <div id="scard" hidden></div>
     <div id="lead"></div>
-    <div id="hotbar"><div id="wslots"></div><div id="itbar"></div><button id="menuBtn" data-n="" title="装備・シナジー（I）" aria-label="装備・シナジー"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.3 7.4V5.8a3.7 3.7 0 0 1 7.4 0v1.6" fill="none" stroke="#d8a868" stroke-width="1.8"/><path d="M4.8 9q0-1.6 1.6-1.6h11.2q1.6 0 1.6 1.6l1.2 10.4q.2 2.2-2 2.2H5.6q-2.2 0-2-2.2z" fill="#a8703e" stroke="#3e240e" stroke-width="1.3"/><path d="M5 8.9h14l.3 3.4q-7.3 2.6-14.6 0z" fill="#c88a50"/><path d="M5.6 20.2h12.8" stroke="#7a4a22" stroke-width="1"/><rect x="10.4" y="11" width="3.2" height="3.6" rx=".7" fill="#f2c460" stroke="#5a3c10" stroke-width=".9"/><path d="M6.8 10.2q1.8.9 3.6 1.2" stroke="#e8b070" stroke-width=".8" fill="none" stroke-linecap="round"/></svg><kbd>I</kbd><span class="mbl">装備</span></button></div>
+    <div id="hotbar"><div id="wslots"></div><div id="itbar"></div><button id="menuBtn" data-n="" title="装備・シナジー（I）" aria-label="装備・シナジー"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.3 7.4V5.8a3.7 3.7 0 0 1 7.4 0v1.6" fill="none" stroke="#d8a868" stroke-width="1.8"/><path d="M4.8 9q0-1.6 1.6-1.6h11.2q1.6 0 1.6 1.6l1.2 10.4q.2 2.2-2 2.2H5.6q-2.2 0-2-2.2z" fill="#a8703e" stroke="#3e240e" stroke-width="1.3"/><path d="M5 8.9h14l.3 3.4q-7.3 2.6-14.6 0z" fill="#c88a50"/><path d="M5.6 20.2h12.8" stroke="#7a4a22" stroke-width="1"/><rect x="10.4" y="11" width="3.2" height="3.6" rx=".7" fill="#f2c460" stroke="#5a3c10" stroke-width=".9"/><path d="M6.8 10.2q1.8.9 3.6 1.2" stroke="#e8b070" stroke-width=".8" fill="none" stroke-linecap="round"/></svg><kbd data-pad="MENU">I</kbd><span class="mbl">装備</span></button></div>
     <div id="joy"><i id="joyk"></i></div>
     <button id="tswap" hidden aria-label="リーダー交代">交代</button>
     <button id="tskill" aria-label="武器の技"><img alt="" hidden><span class="ct"></span><span class="tn"></span></button>
@@ -765,7 +788,7 @@ body.touch #qtrack{top:124px;right:calc(8px + env(safe-area-inset-right));width:
     <div class="mwin" role="dialog" aria-label="メニュー">
       <div class="mtop"><div class="mt" id="mt">RUNEDEEP</div>
         <div class="tabs"><button data-t="equip">装備</button><button data-t="syn">シナジー</button><button data-t="dex">図鑑</button><button data-t="opts">設定</button></div>
-        <button id="mclose">閉じる <kbd>Esc</kbd></button></div>
+        <button id="mclose">閉じる <kbd data-pad="B">Esc</kbd></button></div>
       <div id="mbody"></div>
     </div>
   </div>
@@ -773,6 +796,20 @@ body.touch #qtrack{top:124px;right:calc(8px + env(safe-area-inset-right));width:
   <div id="tip" hidden></div>
 </div>
 <script>
+// ===== Steam版（Electron）とブラウザ版の違いをここに集める =====
+// Steam版では preload.js が window.RD_NATIVE を用意する：セーブはファイルへ、全画面はウィンドウごと、ゲームの終了など
+const NATIVE = window.RD_NATIVE || null; // preload.js が用意した窓口（同じ名前で const を宣言できないので別名）
+const STORE = NATIVE
+  ? { get: k => NATIVE.load(k), set: (k, v) => NATIVE.save(k, v), del: k => NATIVE.remove(k) }
+  : { get: k => localStorage.getItem(k), set: (k, v) => localStorage.setItem(k, v), del: k => localStorage.removeItem(k) };
+if (NATIVE) {
+  document.documentElement.classList.add('native');
+  // Ctrl＋ホイール・ピンチで画面が拡大しないように（ゲームのズームはホイールだけ）
+  addEventListener('wheel', e => { if (e.ctrlKey) e.preventDefault(); }, { passive: false });
+  addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && /^(Equal|Minus|NumpadAdd|NumpadSubtract|Digit0|Numpad0)$/.test(e.code)) e.preventDefault(); }, true);
+}
+function quitGame() { if (!NATIVE) return; try { if (typeof saveGame === 'function') saveGame(); } catch (e) { } NATIVE.quit(); }
+
 // ===== WebGL2 描画エンジン：インスタンス描画 + 影 + HDR + ブルーム =====
 const MAT = { VOX: 0, STONE: 1, BRICK: 2, ROCK: 3, WOOD: 4, METAL: 5, LAVA: 6, WATER: 7, ICE: 8, MARBLE: 9, CARPET: 10, SNOW: 11, RUNE: 12, MOSS: 13, DIRT: 14, PRISON: 15, LAWN: 16, COBBLE: 17, VOID: 18, POISON: 19, SLASH: 28, RING: 29, SOFT: 30, FLAT: 31 };
 const R = (() => {
@@ -788,13 +825,12 @@ const R = (() => {
   let theme = { fog: [0.02, 0.022, 0.03], amb: [0.05, 0.05, 0.065], key: [0.16, 0.17, 0.22], fogNear: 30, fogFar: 60 };
   let hero = null;
   const lvp = new Float32Array(16), tmpV = new Float32Array(16), tmpP = new Float32Array(16);
-  let quality = 2, autoScale = 1, hasFloat = false, samples = 0;
+  let quality = 2, hasFloat = false, samples = 0;
   // 画面効果の状態（衝撃波・放射ブラー・陽炎・瀕死）と計測値
   const waves = []; let rbK = 0, rbPos = [0, 0, 0], post = { heat: 0, low: 0, fx: true };
   const stats = { inst: 0, calls: 0, cpu: 0 };
   let fboMS, rbColor, rbDepth, fboRes, texScene, fboA, texA, fboB, texB, fboC, texC, fboD, texD, fboShadow, texShadow, shadowSize = 2048;
   let flashCol = [0, 0, 0], flashK = 0, time = 0, triVao;
-  const ftimes = [];
 
   const COMMON = `
   float hash(vec2 p){ p=fract(p*vec2(123.34,456.21)); p+=dot(p,p+45.32); return fract(p.x*p.y); }
@@ -1188,17 +1224,17 @@ const R = (() => {
     resize(true); setupShadow();
   }
   function resize(force) {
-    const dprMax = quality >= 2 ? 1.6 : quality === 1 ? 1.2 : 0.9;
+    const dprMax = quality >= 2 ? 1.6 : quality === 1 ? 1.2 : quality === 0 ? 0.9 : 0.7; // 最低（-1）はさらに粗く
     const dpr = Math.min(window.devicePixelRatio || 1, dprMax);
     const cw = canvas.clientWidth || 1, ch = canvas.clientHeight || 1;
-    const s = dpr * autoScale;
+    const s = dpr;
     const bw = Math.max(1, Math.round(cw * s)), bh = Math.max(1, Math.round(ch * s));
     if (!force && bw === BW && bh === BH && cw === W && ch === H) return;
     W = cw; H = ch; BW = bw; BH = bh;
     const cd = Math.min(window.devicePixelRatio || 1, 2); canvas.width = Math.round(cw * cd); canvas.height = Math.round(ch * cd);
     setupTargets();
   }
-  function setQuality(q) { quality = q; autoScale = 1; ftimes.length = 0; resize(true); setupShadow(); }
+  function setQuality(q) { quality = q; resize(true); setupShadow(); }
 
   const colCache = new Map();
   function hexCol(h) { let c = colCache.get(h); if (!c) { c = [((h >> 16) & 255) / 255, ((h >> 8) & 255) / 255, (h & 255) / 255]; colCache.set(h, c); } return c; }
@@ -1255,9 +1291,6 @@ const R = (() => {
   let lastT = 0;
   function render() {
     const now = performance.now() / 1000, dt = lastT ? Math.min(0.1, now - lastT) : 0.016; lastT = now; time = now;
-    ftimes.push(dt); if (ftimes.length > 50) { ftimes.shift(); const avg = ftimes.reduce((a, b) => a + b, 0) / ftimes.length;
-      if (avg > 0.024 && autoScale > 0.5) { autoScale = Math.max(0.5, autoScale * 0.87); ftimes.length = 0; resize(true); }
-      else if (avg < 0.0135 && autoScale < 1) { autoScale = Math.min(1, autoScale * 1.07); ftimes.length = 0; resize(true); } }
     resize(false);
     updateCam(dt); const cpu0 = performance.now(); stats.inst = 0; stats.calls = 0;
     flashK = Math.max(0, flashK - dt * 2.2);
@@ -1277,7 +1310,7 @@ const R = (() => {
     gl.uniformMatrix4fv(U.u_vp, false, cam.vp); gl.uniform3fv(U.u_eye, cam.eye); gl.uniform3fv(U.u_fog, theme.fog);
     gl.uniform3fv(U.u_amb, theme.amb); gl.uniform3fv(U.u_key, theme.key); gl.uniform3fv(U.u_keyDir, [0.35, 0.85, 0.4]);
     gl.uniform2f(U.u_fogR, theme.fogNear, theme.fogFar); gl.uniform1f(U.u_time, time % 1000); gl.uniform1f(U.u_ldr, hasFloat ? 0 : 1);
-    const L = hero ? [hero, ...lights] : lights.slice(); const nl = Math.min(MAXL, L.length);
+    const L = hero ? [hero, ...lights] : lights.slice(); const nl = Math.min(quality < 0 ? 6 : MAXL, L.length); // 最低は近くの光だけ
     const lp = new Float32Array(MAXL * 4), lc = new Float32Array(MAXL * 3);
     for (let i = 0; i < nl; i++) { lp.set(L[i].slice(0, 4), i * 4); lc.set(L[i].slice(4, 7), i * 3); }
     gl.uniform1i(U.u_nl, nl); gl.uniform4fv(U.u_lp, lp); gl.uniform3fv(U.u_lc, lc);
@@ -1296,17 +1329,19 @@ const R = (() => {
     gl.blitFramebuffer(0, 0, BW, BH, 0, 0, BW, BH, gl.COLOR_BUFFER_BIT, gl.NEAREST);
     gl.bindFramebuffer(gl.READ_FRAMEBUFFER, null); gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER, null);
     const hw = Math.max(1, BW >> 1), hh = Math.max(1, BH >> 1), qw = Math.max(1, BW >> 2), qh = Math.max(1, BH >> 2);
-    gl.useProgram(progBright); bindTex(0, texScene); gl.uniform1i(UB.u_t, 0); gl.uniform2f(UB.u_px, 1 / BW, 1 / BH); gl.uniform1f(UB.u_th, hasFloat ? 1.15 : 0.82); quad(fboA, hw, hh);
-    gl.useProgram(progBlur); gl.uniform1i(UBl.u_t, 0);
-    bindTex(0, texA); gl.uniform2f(UBl.u_d, 1 / hw, 0); quad(fboB, hw, hh);
-    bindTex(0, texB); gl.uniform2f(UBl.u_d, 0, 1 / hh); quad(fboA, hw, hh);
-    bindTex(0, texA); gl.uniform2f(UBl.u_d, 2 / qw, 0); quad(fboC, qw, qh);
-    bindTex(0, texC); gl.uniform2f(UBl.u_d, 0, 2 / qh); quad(fboD, qw, qh);
-    bindTex(0, texD); gl.uniform2f(UBl.u_d, 3.5 / qw, 0); quad(fboC, qw, qh);
-    bindTex(0, texC); gl.uniform2f(UBl.u_d, 0, 3.5 / qh); quad(fboD, qw, qh);
+    if (quality >= 0) { // 最低はブルームを省く
+      gl.useProgram(progBright); bindTex(0, texScene); gl.uniform1i(UB.u_t, 0); gl.uniform2f(UB.u_px, 1 / BW, 1 / BH); gl.uniform1f(UB.u_th, hasFloat ? 1.15 : 0.82); quad(fboA, hw, hh);
+      gl.useProgram(progBlur); gl.uniform1i(UBl.u_t, 0);
+      bindTex(0, texA); gl.uniform2f(UBl.u_d, 1 / hw, 0); quad(fboB, hw, hh);
+      bindTex(0, texB); gl.uniform2f(UBl.u_d, 0, 1 / hh); quad(fboA, hw, hh);
+      bindTex(0, texA); gl.uniform2f(UBl.u_d, 2 / qw, 0); quad(fboC, qw, qh);
+      bindTex(0, texC); gl.uniform2f(UBl.u_d, 0, 2 / qh); quad(fboD, qw, qh);
+      bindTex(0, texD); gl.uniform2f(UBl.u_d, 3.5 / qw, 0); quad(fboC, qw, qh);
+      bindTex(0, texC); gl.uniform2f(UBl.u_d, 0, 3.5 / qh); quad(fboD, qw, qh);
+    }
     gl.useProgram(progComp); bindTex(0, texScene); bindTex(1, texA); bindTex(2, texD);
     gl.uniform1i(UC.u_s, 0); gl.uniform1i(UC.u_b1, 1); gl.uniform1i(UC.u_b2, 2);
-    gl.uniform1f(UC.u_bl, quality >= 1 ? 0.6 : 0.4); gl.uniform1f(UC.u_exp, 1.3); gl.uniform1f(UC.u_t, time % 100); gl.uniform1f(UC.u_ldr, hasFloat ? 0 : 1);
+    gl.uniform1f(UC.u_bl, quality >= 1 ? 0.6 : quality === 0 ? 0.4 : 0); gl.uniform1f(UC.u_exp, 1.3); gl.uniform1f(UC.u_t, time % 100); gl.uniform1f(UC.u_ldr, hasFloat ? 0 : 1);
     gl.uniform3fv(UC.u_fl, flashCol); gl.uniform1f(UC.u_flk, flashK);
     postUniforms(dt);
     quad(null, canvas.width, canvas.height);
@@ -1323,7 +1358,7 @@ const R = (() => {
     gl.uniform4fv(UC.u_sw, sw); gl.uniform1i(UC.u_nsw, n);
     rbK = Math.max(0, rbK - dt * 3.2); const rp = project(rbPos[0], rbPos[1], rbPos[2]);
     gl.uniform3f(UC.u_rb, rp[0] / W, 1 - rp[1] / H, post.fx ? rbK : 0);
-    gl.uniform2f(UC.u_px, 1 / BW, 1 / BH); gl.uniform1f(UC.u_aa, quality >= 2 && samples > 0 ? 0 : 1); gl.uniform1f(UC.u_asp, W / H);
+    gl.uniform2f(UC.u_px, 1 / BW, 1 / BH); gl.uniform1f(UC.u_aa, (quality >= 2 && samples > 0) || quality < 0 ? 0 : 1); gl.uniform1f(UC.u_asp, W / H);
     gl.uniform1f(UC.u_heat, post.fx ? post.heat : 0); gl.uniform1f(UC.u_low, post.low);
   }
   // 衝撃波（x,y,z を中心に半径 r まで広がる。k は強さ 0〜1）と放射ブラー
@@ -1338,7 +1373,7 @@ const R = (() => {
   function warm() { const x = cam.tx, z = cam.tz;
     for (const g of ['box', 'sph', 'quad', 'ring', 'disc', 'cyl', 'oct']) for (const [pass, mat] of [[0, 0], [1, 0], [2, 0], [1, 30], [2, 30], [1, 29], [2, 29], [1, 31], [2, 28], [1, 28]]) push(g, pass, x, -30, z, 0.01, 0.01, 0.01, 0, 0, 0, 0xffffff, 0.01, 0.1, mat, 1);
     light(x, -30, z, 1, 0xffffff, 0.01); render(); }
-  return { init, warm, addMesh, push, light, render, project, unproject, cam, setTheme, hexCol, shake, flash, setQuality, wave, rblur, setPost, stats, waves, post, get res() { return [BW, BH]; }, get msaa() { return quality >= 2 && samples > 0; }, hasGeo: n => !!geos[n], get W() { return W; }, get H() { return H; }, get quality() { return quality; }, get scale() { return autoScale; }, get hdr() { return hasFloat; } };
+  return { init, warm, addMesh, push, light, render, project, unproject, cam, setTheme, hexCol, shake, flash, setQuality, wave, rblur, setPost, stats, waves, post, get res() { return [BW, BH]; }, get msaa() { return quality >= 2 && samples > 0; }, hasGeo: n => !!geos[n], get W() { return W; }, get H() { return H; }, get quality() { return quality; }, get hdr() { return hasFloat; } };
 })();
 
 // ===== データ定義 =====
@@ -1951,8 +1986,6 @@ const MAGIC_PREFIX = { atk: '猛き', atkPct: '猛き', hp: '頑強な', hpPct: 
 // 地下で拾う品・宝箱・遺物の鑑定・商人の箱は、どれも同じ重み（v84までの比率）
 const RAR_W = [48, 33, 12, 3.6, 0.75, 1.4];
 const RAR_W_APPRAISE = RAR_W;
-// 敵が落とす装備の数の倍率：普通の階で、敵からのエピックがおよそ1階に1つになるように（ボスは別）
-const ENEMY_DROP_K = 1.14;
 function rollDrop(il, o = {}) { return genItem(il, Object.assign({}, o, { rarity: rollRarity(o.mf || 0) })); }
 function rollRarity(mf, W) {
   const m = 1 + mf, B = W || RAR_W;
@@ -3128,8 +3161,18 @@ const VX = (() => {
     { const g = G(), wd = 0x8a5a2a, wdd = 0x5e3a1c, ir = 0x3a3a44, gd = 0xd6a24a; fill(g, -7, 0, -5, 7, 6, 5, wd); for (const y of [2, 4]) { fill(g, -7, y, 5, 7, y, 5, wdd); fill(g, -7, y, -5, 7, y, -5, wdd); fill(g, -7, y, -5, -7, y, 5, wdd); fill(g, 7, y, -5, 7, y, 5, wdd); }
       for (const x of [-4, 4]) { fill(g, x, 0, -5, x, 6, -5, ir); fill(g, x, 0, 5, x, 6, 5, ir); fill(g, x, 6, -5, x, 6, 5, ir); } for (const [x, z] of [[-7, -5], [7, -5], [-7, 5], [7, 5]]) fill(g, x, 0, z, x, 6, z, gd); fill(g, -7, 0, -5, 7, 0, 5, wdd);
       fill(g, -1, 3, 6, 1, 6, 6, gd); put(g, 0, 4, 6, 0x1a1008); prop('chest', g); }
+    // 開けた宝箱：中がくり抜かれて空っぽ（暗い底板が見える）
+    { const g = G(), wd = 0x8a5a2a, wdd = 0x5e3a1c, ir = 0x3a3a44, gd = 0xd6a24a, inn = 0x2a1a0e, inn2 = 0x3a2614;
+      fill(g, -7, 0, -5, 7, 0, 5, wdd); fill(g, -6, 1, -4, 6, 1, 4, inn); for (const [x, z] of [[-5, -3], [2, 1], [4, -2], [-2, 3]]) put(g, x, 1, z, inn2); // 底板（ほこりの跡がまだら）
+      for (const z of [-5, 5]) fill(g, -7, 1, z, 7, 6, z, wd); for (const x of [-7, 7]) fill(g, x, 1, -5, x, 6, 5, wd); // 板1枚ぶんの厚みの壁
+      for (const y of [2, 4]) { fill(g, -7, y, 5, 7, y, 5, wdd); fill(g, -7, y, -5, 7, y, -5, wdd); fill(g, -7, y, -5, -7, y, 5, wdd); fill(g, 7, y, -5, 7, y, 5, wdd); }
+      for (const x of [-4, 4]) { fill(g, x, 0, -5, x, 6, -5, ir); fill(g, x, 0, 5, x, 6, 5, ir); } for (const [x, z] of [[-7, -5], [7, -5], [-7, 5], [7, 5]]) fill(g, x, 0, z, x, 6, z, gd);
+      fill(g, -1, 3, 6, 1, 6, 6, gd); put(g, 0, 4, 6, 0x1a1008); prop('chest_open', g); }
     { const g = G(), wd = 0x9a6630, ir = 0x3a3a44, gd = 0xd6a24a; for (let z = 0; z <= 10; z++) { const h = 1 + Math.round(2.4 * Math.sin(Math.PI * (z + 0.5) / 11)); fill(g, -7, 0, z, 7, h, z, wd); for (const x of [-4, 4]) fill(g, x, 0, z, x, h, z, ir); for (const x of [-7, 7]) fill(g, x, 0, z, x, h, z, gd); fill(g, -6, h, z, 6, h, z, z % 3 ? wd : 0x7a4e24); }
-      fill(g, -7, 0, 10, 7, 0, 10, gd); fill(g, -1, -1, 11, 1, 1, 11, gd); put(g, 0, 0, 12, E(0xffe08a)); prop('chestlid', g, [0.5, 0, 0]); }
+      fill(g, -7, 0, 10, 7, 0, 10, gd); fill(g, -1, -1, 11, 1, 1, 11, gd); put(g, 0, 0, 12, E(0xffe08a)); prop('chestlid', g, [0.5, 0, 0]);
+      }
+    { const g = G(), wd = 0x9a6630, ir = 0x3a3a44, gd = 0xd6a24a; for (let z = 0; z <= 10; z++) { const h = 1 + Math.round(2.4 * Math.sin(Math.PI * (z + 0.5) / 11)); fill(g, -7, 0, z, 7, h, z, wd); for (const x of [-4, 4]) fill(g, x, 0, z, x, h, z, ir); for (const x of [-7, 7]) fill(g, x, 0, z, x, h, z, gd); fill(g, -6, h, z, 6, h, z, z % 3 ? wd : 0x7a4e24); }
+      fill(g, -7, 0, 10, 7, 0, 10, gd); fill(g, -1, -1, 11, 1, 1, 11, gd); put(g, 0, 0, 12, 0x6a5228); prop('chestlid_off', g, [0.5, 0, 0]); } // 開けた後のふた：錠の光が消える
     // 燭台
     { const g = G(), ir = 0x2a2a30; fill(g, -2, 0, -2, 2, 0, 2, ir); fill(g, 0, 1, 0, 0, 16, 0, ir); fill(g, -4, 16, 0, 4, 16, 0, ir); for (const x of [-4, 0, 4]) { fill(g, x, 17, 0, x, 19, 0, 0xefe6cf); } prop('candelabra', g); }
     // 蜘蛛の巣（通路を塞ぐ）
@@ -5319,7 +5362,7 @@ function makeChar(name, cls, wbase, lv, look) {
 }
 function newSave(first) {
   const s = { v: 4, uid: 1, party: [], inv: [], store: [], gold: 150, stones: 0, items: { potion: 3, ether: 1, scroll: 1, bomb: 2 }, floor: 1, maxFloor: 1, tod: 0.3, mercs: null,
-    opts: { autoSalvage: 0, dmgText: true, autoPotion: true, autoCast: false, quality: (typeof matchMedia !== 'undefined' && matchMedia('(pointer: coarse)').matches) ? 1 : 2, vMaster: 0.8, vSfx: 0.85, vBgm: 0.45 }, stats: { kills: 0, legends: 0, reactions: 0 }, dex: { filled: true }, bless: null, shop: null };
+    opts: { autoSalvage: 0, dmgText: true, autoPotion: true, autoCast: false, quality: (NATIVE && NATIVE.info && NATIVE.info.deck) || (typeof matchMedia !== 'undefined' && matchMedia('(pointer: coarse)').matches) ? 1 : 2, /* スマホ・Steam Deck は「中」から */ vMaster: 0.8, vSfx: 0.85, vBgm: 0.45 }, stats: { kills: 0, legends: 0, reactions: 0 }, dex: { filled: true }, bless: null, shop: null };
   G.save = s;
   s.party.push(makeChar(first.name, first.cls, first.weapon, 1, first.look)); s.unlocked = [...new Set(['warrior', first.cls])];
   return s;
@@ -5757,7 +5800,7 @@ function killEnemy(e, m, elem) {
 function dropLoot(e) {
   const run = G.run, prefCls = G.save.party.map(p => p.cls);
   const deep = isDeep(run.floor);
-  const nb = e.elite ? (deep ? 3 : 2) : e.type === 'mimic' ? 3 : (deep ? 0.2 : 0.15), nk = nb * ENEMY_DROP_K, n = e.boss ? 5 : Math.floor(nk) + (rnd() < nk % 1 ? 1 : 0); // ボス以外は数を ENEMY_DROP_K 倍（端数は確率で）
+  const n = e.boss ? 5 : e.elite ? 1 : e.type === 'mimic' ? 2 : (rnd() < (deep ? 0.23 : 0.17) ? 1 : 0); // 精鋭は1個・ミミックは2個・普通の敵は17%（深淵23%）で1個
   const mf = partyMf() + (e.elite ? 0.8 : 0) + (e.boss ? 2.5 : 0) + (e.type === 'mimic' ? 2 : 0) + (deep ? 1.5 : 0);
   const il = Math.max(1, e.lvl) + (e.boss ? randInt(1, 2) : 0);
   const items = []; for (let i = 0; i < n; i++) { const it = rollDrop(il, { mf, prefCls, deep }); if (it) items.push(it); }
@@ -5867,7 +5910,7 @@ function useItem(k, auto) {
   }
   if (k === 'scroll') { if (run.town || run.portal > 0) return; G.save.items.scroll--; startPortal(); return; }
   if (k === 'bomb') {
-    let [tx, tz] = TOUCH.on ? autoAim(L, 9) : R.unproject(G.mouse.x, G.mouse.y, 0); const d = Math.hypot(tx - L.x, tz - L.z); if (d > 9) { tx = L.x + (tx - L.x) / d * 9; tz = L.z + (tz - L.z) / d * 9; }
+    let [tx, tz] = PAD.on ? (PAD.aim ? padAimAt(L, 6) : autoAim(L, 9)) : TOUCH.on ? autoAim(L, 9) : R.unproject(G.mouse.x, G.mouse.y, 0); const d = Math.hypot(tx - L.x, tz - L.z); if (d > 9) { tx = L.x + (tx - L.x) / d * 9; tz = L.z + (tz - L.z) / d * 9; }
     G.save.items.bomb--; L.face = Math.atan2(tx - L.x, tz - L.z); L.swing = 0.25; L.swingK = 'swap'; run.projs.push({ team: 'b', m: L, x: L.x, z: L.z, y: 1.4, vx: (tx - L.x) / 0.7, vz: (tz - L.z) / 0.7, vy: 6, life: 0.7, size: 0.35, tx, tz, bomb: true });
     SFX.play('swing', { x: L.x, z: L.z });
   }
@@ -6011,7 +6054,7 @@ function openChest(c) {
     if (c.trap === 'poison') { addText(c.x, 2.6, c.z, '毒の罠！', '#9be45e', 1.2); for (const m of run.members) if (!m.dead && dist(m, c) < 5) m.pois = Math.max(m.pois, 6); run.fx.push({ k: 'burst', x: c.x, y: 1, z: c.z, r: 3, t: 0, dur: 0.6, col: 0x9be45e }); SFX.play('poison', { x: c.x, z: c.z }); }
     else if (c.trap === 'boom') { addText(c.x, 2.6, c.z, '爆発の罠！', '#ff9a4a', 1.2); for (const m of run.members) if (!m.dead && dist(m, c) < 3.5) damageMember(m, m.st.maxHp * 0.15, 'fire', true, { by: '宝箱の爆発の罠' }); burst(c.x, 1, c.z, 3, 0xff7a2a); SFX.play('boom', { x: c.x, z: c.z }); R.shake(0.6); }
     else { addText(c.x, 2.6, c.z, '呪いの罠！ 攻撃力低下', '#b574de', 1.1); for (const m of run.members) m.buffs.curse = 20; SFX.play('cast', { x: c.x, z: c.z, pitch: 0.4 }); } }
-  const f = Math.max(1, run.floor), n = c.secret ? randInt(2, 4) : randInt(1, 3), items = [];
+  const f = Math.max(1, run.floor), n = c.secret ? randInt(2, 3) : randInt(1, 2), items = []; // 宝箱は1〜2個、隠し部屋は2〜3個
   for (let i = 0; i < n; i++) { const it = rollDrop(f, { mf: partyMf() + (c.secret ? 3 : 1.2) + (isDeep(f) ? 1.5 : 0), prefCls: G.save.party.map(p => p.cls), deep: isDeep(f) }); if (it) items.push(it); }
   if (items.length) spill(items, c.x, c.z, true); dropRelic(c, f); // 未鑑定の遺物
   const fly = o => { const a = rnd() * 6.28, sp = 1.5 + rnd() * 2.5; return Object.assign({ x: c.x, z: c.z, y: 1, vy: 7 + rnd() * 3, vx: Math.cos(a) * sp, vz: Math.sin(a) * sp, t: 0 }, o); };
@@ -6316,7 +6359,7 @@ function update(dt) {
   run.enemies = run.enemies.filter(e => !e.dead);
   let nearLoot = null, nlD = 1.5;
   for (const l of run.loot) { l.t += dt; if (l.vy != null) { l.y += l.vy * dt; l.vy -= 18 * dt; if (l.vx) { const nx = l.x + l.vx * dt, nz = l.z + l.vz * dt; if (walkable(nx, nz)) { l.x = nx; l.z = nz; } else { l.vx *= -0.3; l.vz *= -0.3; } } if (l.y < 0.45) { if (l.vy < -4 && l.bounce !== false) { l.y = 0.45; l.vy = -l.vy * 0.35; l.vx *= 0.5; l.vz *= 0.5; l.bounce = false; } else { l.y = 0.45; l.vy = null; if (l.gold && !(run.cfT > G.time)) { run.cfT = G.time + 0.08; SFX.play('coinfall', { x: l.x, z: l.z, vol: 0.35 }); } } } } if (l.taken) continue;
-    if (l.it && !(G.save.opts.autoSalvage && l.it.r < G.save.opts.autoSalvage && l.it.r < 4 && !BASES[l.it.b].keyItem)) { // 装備は自動で拾わない（Eで拾う）
+    if ((l.it && !(G.save.opts.autoSalvage && l.it.r < G.save.opts.autoSalvage && l.it.r < 4 && !BASES[l.it.b].keyItem)) || l.relic) { // 装備と未鑑定の遺物は自動で拾わない（Eで拾う）
       const d = Math.hypot(L.x - l.x, L.z - l.z); if (l.t > 0.45 && d < nlD) { nlD = d; nearLoot = l; } continue; }
     if (l.gold && l.vy == null && l.t > 0.7) { const d = Math.hypot(L.x - l.x, L.z - l.z); if (d < 4.2 && d > 0.3) { const sp = (4.2 - d) * 3.2 * dt; l.x += (L.x - l.x) / d * sp; l.z += (L.z - l.z) / d * sp; } } // 近くの金貨は吸い寄せられる
     for (const m of run.members) { if (m.dead) continue; const d = Math.hypot(m.x - l.x, m.z - l.z); if (d < (m === L ? (l.gold ? 1.2 : 2.4) : 1.4) && l.t > 0.45) { pickup(l); break; } } }
@@ -6392,6 +6435,7 @@ function inputDir() {
   const k = G.keys; let x = 0, y = 0;
   if (k.KeyW || k.ArrowUp) y += 1; if (k.KeyS || k.ArrowDown) y -= 1; if (k.KeyA || k.ArrowLeft) x -= 1; if (k.KeyD || k.ArrowRight) x += 1;
   if (!x && !y && TOUCH.mv && !(typeof DLG !== 'undefined' && DLG.open)) { x = TOUCH.mv[0]; y = TOUCH.mv[1]; }
+  if (!x && !y && PAD.mv && !(typeof DLG !== 'undefined' && DLG.open)) { x = PAD.mv[0]; y = PAD.mv[1]; } // ゲームパッドの左スティック（倒した量で歩く速さは変えない）
   const az = R.cam.az;
   if (x || y) { const fx = -Math.sin(az), fz = -Math.cos(az), rx = Math.cos(az), rz = -Math.sin(az); const dx = rx * x + fx * y, dz = rz * x + fz * y; const l = Math.hypot(dx, dz); return [dx / l, dz / l]; }
   if (typeof DLG !== 'undefined' && DLG.open) return null;
@@ -6402,8 +6446,10 @@ function inputDir() {
 function cursorWorld() { return R.unproject(G.mouse.x, G.mouse.y, 0); }
 // スマホの技ボタン：近くの敵、いなければ向いている方向を狙う
 function autoAim(m, maxD = 14) { const e = nearestEnemy(m, maxD); if (e) return [e.x, e.z]; return [m.x + Math.sin(m.face) * 4, m.z + Math.cos(m.face) * 4]; }
-function aimWorld(m) { return TOUCH.skill ? autoAim(m) : cursorWorld(); }
-function aiming() { return (G.mouse.down && !G.mouse.onUi) || TOUCH.skill; }
+// ゲームパッド：右スティックはその方向へ、RTは近くの敵へ
+function aimWorld(m) { if (PAD.aim) return padAimAt(m); return TOUCH.skill || PAD.fire ? autoAim(m) : cursorWorld(); }
+function padAimAt(m, d = 7) { const e = nearestEnemy(m, 12), [dx, dz] = PAD.aim; if (e) { const ex = e.x - m.x, ez = e.z - m.z, l = Math.hypot(ex, ez) || 1; if ((ex * dx + ez * dz) / l > 0.93) return [e.x, e.z]; } return [m.x + dx * d, m.z + dz * d]; } // 狙った方向のすぐ近くに敵がいれば、その敵へ
+function aiming() { return (G.mouse.down && !G.mouse.onUi) || TOUCH.skill || PAD.fire || !!PAD.aim; }
 // 先頭が歩いた道のりに沿って、n人目が立つ位置（点と点の間も補間してなめらかに）
 function trailPoint(n) { const tr = G.run.trail, L = leader(); if (!tr.length || !L) return null; const want = n * 1.6; let px = L.x, pz = L.z, acc = 0;
   for (const p of tr) { const d = Math.hypot(p.x - px, p.z - pz); if (acc + d >= want) { const t = (want - acc) / (d || 1); return { x: px + (p.x - px) * t, z: pz + (p.z - pz) * t }; } acc += d; px = p.x; pz = p.z; }
@@ -7888,7 +7934,7 @@ function burst(x, y, z, r, col) { G.run.fx.push({ k: 'burst', x, y, z, r, t: 0, 
 function dotText(o, dt, db, dp, y, show) { o.dotB = (o.dotB || 0) + db; o.dotP = (o.dotP || 0) + dp; o.dotT = (o.dotT || 0) - dt; if (o.dotT > 0) return; o.dotT = 0.6;
   if (show && G.save.opts.dmgText) { const two = o.dotB > 0 && o.dotP > 0; if (o.dotB > 0) addText(o.x - (two ? 0.4 : 0), y, o.z, '燃焼 ' + fmt(o.dotB), '#ff9a6a', 0.65); if (o.dotP > 0) addText(o.x + (two ? 0.4 : 0), y + (two ? 0.45 : 0), o.z, '毒 ' + fmt(o.dotP), '#9be45e', 0.65); }
   o.dotB = 0; o.dotP = 0; }
-function part(x, y, z, vx, vy, vz, col, dur) { if (G.run.parts.length < 500) G.run.parts.push({ x, y, z, vx, vy, vz, col, t: 0, dur }); }
+function part(x, y, z, vx, vy, vz, col, dur) { const low = G.save.opts.quality < 0; if (low && rnd() < 0.5) return; if (G.run.parts.length < (low ? 200 : 500)) G.run.parts.push({ x, y, z, vx, vy, vz, col, t: 0, dur }); } // 最低画質では粒を半分に
 function sparks(x, z, col, n) { for (let i = 0; i < n; i++) part(x, 1 + rnd() * 0.5, z, (rnd() - .5) * 8, 2 + rnd() * 4, (rnd() - .5) * 8, col, 0.3 + rnd() * 0.25); }
 function shards(x, z) { for (let i = 0; i < 12; i++) part(x, 1, z, (rnd() - .5) * 9, 2 + rnd() * 5, (rnd() - .5) * 9, 0xbfeaff, 0.8); }
 function debris(x, y, z, col, s) { if (G.run.debris.length > 420) G.run.debris.shift(); G.run.debris.push({ x, y, z, vx: (rnd() - .5) * 7, vy: 3 + rnd() * 6, vz: (rnd() - .5) * 7, col, s: s * (0.7 + rnd() * 0.6), rx: rnd() * 6, rz: rnd() * 6, wr: (rnd() - .5) * 20, t: 0, dur: 2.2 + rnd() * 1.5 }); }
@@ -9542,7 +9588,7 @@ function postFx(dt) {
   const run = G.run, L = run && leader(); let heat = 0, low = 0;
   if (run && !run.town) { heat = Math.min(1, POSTFX.lava / 7) * 0.9; if (L && !L.dead) { const r = L.hp / Math.max(1, L.st.maxHp); low = Math.max(0, Math.min(1, (0.35 - r) / 0.25)); } }
   POSTFX.heat += (heat - POSTFX.heat) * Math.min(1, dt * 2); POSTFX.low += (low - POSTFX.low) * Math.min(1, dt * 4);
-  R.setPost({ heat: POSTFX.heat, low: POSTFX.low, fx: G.save.opts.screenFx !== false }); }
+  R.setPost({ heat: POSTFX.heat, low: POSTFX.low, fx: G.save.opts.screenFx !== false && G.save.opts.quality >= 0 }); } // 最低画質では画面のゆがみも省く
 let FDT = 1 / 60; // 1フレームの実時間（遅延ダメージ表示などの演出をフレームレートによらず同じ速さにする）
 function drawWorld(dt) {
   FDT = clamp(dt || 1 / 60, 0.001, 0.1);
@@ -9697,9 +9743,10 @@ function drawWorld(dt) {
     if (b.k === 'candelabra') for (const s of [-1, 0, 1]) { const fl = 0.85 + Math.sin(G.time * 12 + b.x + s) * 0.12; R.push('sph', 2, b.x + s * 0.35, 1.95 + (s ? 0 : 0.2), b.z, 0.14 * fl, 0.25 * fl, 0.14 * fl, 0, 0, 0, 0xffb060, 0.95, 1.4); } }
   // 宝箱
   for (const c of M.chests) { if (!shown(c.x, c.z)) continue; const o = { x: c.x, z: c.z, face: c.yaw };
-    R.push('p_chest', 0, c.x, 0, c.z, 1, 1, 1, c.yaw, 0, 0, WHITE, 1, 0, MAT.VOX);
+    const used = c.open && G.time - c.openT > 0.25, cc = used ? 0xb4aca4 : WHITE; // 開けた宝箱は中が空っぽの姿にして、少しくすませる
+    R.push(c.open ? 'p_chest_open' : 'p_chest', 0, c.x, 0, c.z, 1, 1, 1, c.yaw, 0, 0, cc, 1, 0, MAT.VOX);
     const open = c.open ? clamp((G.time - c.openT) / 0.3, 0, 1) * 1.9 : (run.chest === c ? Math.sin(G.time * 30) * 0.03 * c.prog : 0);
-    const [lx, lz] = L2W(o, 0, -5.5 * VX.S); R.push('p_chestlid', 0, lx, 7 * VX.S, lz, 1, 1, 1, c.yaw, -open, 0, WHITE, 1, 0, MAT.VOX);
+    const [lx, lz] = L2W(o, 0, -5.5 * VX.S); R.push(c.open ? 'p_chestlid_off' : 'p_chestlid', 0, lx, 7 * VX.S, lz, 1, 1, 1, c.yaw, -open, 0, cc, 1, 0, MAT.VOX);
     if (!c.open) { R.push('ring', 2, c.x, 0.05, c.z, 1.8, 1, 1.8, G.time, 0, 0, 0xf0c060, 0.35 + Math.sin(G.time * 3) * 0.15, 1); if (run.chest === c) R.push('ring', 2, c.x, 0.08, c.z, 2.4 * clamp(c.prog / 1.1, 0.05, 1), 1, 2.4 * clamp(c.prog / 1.1, 0.05, 1), 0, 0, 0, 0xffe08a, 0.9, 1.5); }
     else if (G.time - c.openT < 1) R.push('cyl', 2, c.x, 1.5, c.z, 1.2, 3, 1.2, 0, 0, 0, 0xffe08a, 0.3 * (1 - (G.time - c.openT)), 1); }
   // 血痕など
@@ -9761,7 +9808,7 @@ function drawWorld(dt) {
     if (l.relic) { // 未鑑定の遺物：古びた金具の小箱に、ぼんやり光る紋章。中身は鑑定するまでわからない
       const yy = 0.42 + fy + Math.sin(G.time * 2.5 + l.x) * 0.05, rot = G.time * 0.7 + l.x; R.push('box', 0, l.x, yy, l.z, 0.62, 0.4, 0.44, rot, 0, 0, 0x7a6038, 1, 0.05, MAT.METAL); R.push('box', 0, l.x, yy + 0.22, l.z, 0.66, 0.06, 0.48, rot, 0, 0, 0x4a3a24, 1, 0, MAT.METAL);
       R.push('oct', 0, l.x, yy + 0.36, l.z, 0.14, 0.2, 0.14, G.time * 2, 0, 0, 0xffd870, 1, 1.1); glow(l.x, yy + 0.3, l.z, 0.9 + Math.sin(G.time * 4 + l.z) * 0.15, 0xe8c060, 0.35, 0.7);
-      R.push('ring', 1, l.x, 0.04, l.z, 1.1, 1, 1.1, 0, 0, 0, 0xe8c060, 0.6 + Math.sin(G.time * 3) * 0.2, 0, MAT.FLAT); if (rnd() < 0.05) part(l.x + (rnd() - .5) * 0.5, yy + 0.3, l.z + (rnd() - .5) * 0.5, 0, 0.8, 0, 0xffe8a0, 0.6); continue; }
+      R.push('ring', 1, l.x, 0.04, l.z, 1.1, 1, 1.1, 0, 0, 0, 0xe8c060, 0.6 + Math.sin(G.time * 3) * 0.2, 0, MAT.FLAT); if (run.nearLoot === l) R.push('ring', 1, l.x, 0.05, l.z, 1.4, 1, 1.4, G.time * 2, 0, 0, 0xffffff, 0.55 + Math.sin(G.time * 6) * 0.2, 0, MAT.FLAT); if (rnd() < 0.05) part(l.x + (rnd() - .5) * 0.5, yy + 0.3, l.z + (rnd() - .5) * 0.5, 0, 0.8, 0, 0xffe8a0, 0.6); continue; }
     if (l.cons) { const c = { potion: 0xd8283a, ether: 0x2a5ad8, bomb: 0x2a2a30, scroll: 0xe8dcb8 }[l.cons];
       if (l.cons === 'scroll') R.push('cyl', 0, l.x, 0.2 + fy, l.z, 0.22, 0.6, 0.22, G.time, Math.PI / 2, 0, c, 1, 0.2); else { R.push('sph', 0, l.x, 0.3 + fy, l.z, 0.4, 0.4, 0.4, 0, 0, 0, c, 1, l.cons === 'bomb' ? 0 : 0.5); R.push('cyl', 0, l.x, 0.55 + fy, l.z, 0.14, 0.2, 0.14, 0, 0, 0, l.cons === 'bomb' ? 0x8a6a4a : 0xc8b8a0); }
       R.push('ring', 1, l.x, 0.04, l.z, 0.8, 1, 0.8, 0, 0, 0, c === 0x2a2a30 ? 0xff8a3a : c, 0.55, 0, MAT.FLAT); continue; }
@@ -9941,7 +9988,7 @@ function drawWorld(dt) {
   // 帰還の巻物
   if (run.portal > 0) { R.push('cyl', 2, L.x, 1.5, L.z, 2.2, 3, 2.2, 0, 0, 0, 0x7fb8ff, 0.25 * (2 - run.portal), 1); R.push('ring', 2, L.x, 0.06, L.z, 3, 1, 3, G.time * 3, 0, 0, 0x7fb8ff, 0.9, 1); }
   // カーソル（技の照準）
-  if (!town && !G.menu && (!TOUCH.on || aiming())) { const [cx, cz] = aimWorld(L), sk = L.st.skill; if (sk && !L.dead) { const ready = !(L.chg[L.st.act] > 0) && L.mp >= sk.mp; R.push('ring', 2, cx, 0.07, cz, 1.0, 1, 1.0, G.time * 2, 0, 0, ready ? 0xf0c060 : 0x6a6a7a, ready ? 0.8 : 0.4, 1);
+  if (!town && !G.menu && (!(TOUCH.on || PAD.on) || aiming())) { const [cx, cz] = aimWorld(L), sk = L.st.skill; if (sk && !L.dead) { const ready = !(L.chg[L.st.act] > 0) && L.mp >= sk.mp; R.push('ring', 2, cx, 0.07, cz, 1.0, 1, 1.0, G.time * 2, 0, 0, ready ? 0xf0c060 : 0x6a6a7a, ready ? 0.8 : 0.4, 1);
     if (sk.rad && ['point', 'rain', 'cuts', 'heal', 'zone'].includes(sk.type)) R.push('ring', 2, cx, 0.06, cz, sk.rad * 2 * (1 + L.st.area), 1, sk.rad * 2 * (1 + L.st.area), 0, 0, 0, ready ? 0xf0c060 : 0x6a6a7a, 0.25, 1); } }
 }
 
@@ -10946,7 +10993,7 @@ function buildHud() {
   $('#wslots').innerHTML = SLOTS.map(i => `<button class="ws" id="ws${i}" data-i="${i}"><span class="wk">${i + 1}</span><img alt="" hidden><i class="chg"></i><span class="ct"></span><em class="wmp"></em><span class="wtag"></span></button>`).join('');
   document.querySelectorAll('.ws').forEach(b => { b.onclick = () => { const L = leader(); if (L) switchWeapon(L, +b.dataset.i); };
     b.onmouseenter = e => { const it = G.save.party[G.run.leader].gear[+b.dataset.i]; G.mouse.onUi = true; if (it && !TOUCH.on) showTip(itemCard(it), e); }; b.onmouseleave = () => { G.mouse.onUi = false; hideTip(); }; });
-  $('#itbar').innerHTML = HOTBAR.map(k => `<button class="itb" id="itb_${k}" title="${ITEMS[k].name}：${ITEMS[k].desc}"><span class="itic ${k}"></span><b></b><kbd>${ITEMS[k].key}</kbd></button>`).join('');
+  $('#itbar').innerHTML = HOTBAR.map(k => `<button class="itb" id="itb_${k}" title="${ITEMS[k].name}：${ITEMS[k].desc}"><span class="itic ${k}"></span><b></b><kbd data-pad="${padGlyph(ITEMS[k].key)}">${ITEMS[k].key}</kbd></button>`).join('');
   HOTBAR.forEach(k => { const b = $('#itb_' + k); b.onclick = () => useItem(k); b.onmouseenter = () => G.mouse.onUi = true; b.onmouseleave = () => G.mouse.onUi = false; });
   $('#lead').innerHTML = `<div class="ln"><span class="pg" id="lg"></span><span id="lname"></span><small id="llv"></small></div><span class="bar hp"><i id="lhp"></i><em id="lbr"></em></span><span class="bar mp"><i id="lmp"></i></span><div class="bv"><span id="lhpv"></span><span id="lmpv"></span></div>`;
   HUD.key = '';
@@ -11013,14 +11060,15 @@ function updateHud(dt) {
   layoutTopBars(bb, eb);
   const pr = $('#prompt');
   const nl = run.nearLoot && !run.nearLoot.taken ? run.nearLoot : null;
-  if (nl) { pr.hidden = DLG.open; const t = G.save.inv.length >= BAG_MAX ? `バッグがいっぱい（${BAG_MAX}/${BAG_MAX}）` : `${kb('E')}${esc(nl.it.name)}を拾う`; if (pr._h !== t) { pr.innerHTML = t; pr._h = t; } }
+  if (nl) { pr.hidden = DLG.open; const t = G.save.inv.length >= BAG_MAX ? `バッグがいっぱい（${BAG_MAX}/${BAG_MAX}）` : `${kb('E')}${esc(nl.it ? nl.it.name : '未鑑定の遺物')}を拾う`; if (pr._h !== t) { pr.innerHTML = t; pr._h = t; } }
   else if (run.town) { pr.hidden = !run.near || DLG.open; if (run.near) { const t = run.near.id === 'item' ? `${kb('E')}${esc(run.near.si.it.name)}を買う（${fmt(itemValue(run.near.si.it) * 5)}G）` : run.near.id === 'merc' ? `${kb('E')}${esc(run.near.n.p.name)}（傭兵・${CLASSES[run.near.n.p.cls].name} Lv${run.near.n.p.lv}）と話す` : run.near.id === 'folk' ? kb('E') + '話す' : run.near.id === 'gate' ? kb('E') + '階段を降りてダンジョンへ' : run.near.id === 'tgate' ? kb('E') + '門を調べる' : run.near.id === 'well' ? kb('E') + '古井戸をのぞく' : run.near.id === 'castle' ? kb('E') + '城に入る' : run.near.id === 'castleExit' ? kb('E') + '街へ出る' : run.near.id === 'cow' ? `${kb('E')}${esc(run.near.who)}に話しかける` : run.near.id === 'cowHole' ? kb('E') + '穴をのぞきこむ' : run.near.id === 'innUp' ? kb('E') + '2階の客室へ上がる' : run.near.id === 'innDown' ? kb('E') + '1階へ下りる' : run.near.id === 'board' ? kb('E') + '依頼の掲示板を見る' : run.near.id === 'guild' ? kb('E') + 'ギルドの受付と話す' : run.near.id === 'grave' ? `${kb('E')}${esc(run.near.who)}を見る` : `${kb('E')}${esc(run.near.who)}と話す`; if (pr._h !== t) { pr.innerHTML = t; pr._h = t; } } }
-  else if (run.chest) { pr.hidden = false; const t = TOUCH.on ? '立ち止まるかタップで宝箱を開ける' : '立ち止まると宝箱を開ける　<kbd>E</kbd> すぐ開ける'; if (pr._h !== t) { pr.innerHTML = t; pr._h = t; } }
+  else if (run.chest) { pr.hidden = false; const t = TOUCH.on ? '立ち止まるかタップで宝箱を開ける' : '立ち止まると宝箱を開ける　<kbd data-pad="A">E</kbd> すぐ開ける'; if (pr._h !== t) { pr.innerHTML = t; pr._h = t; } }
   else if (run.nearSunk || run.nearSunkExit) { pr.hidden = DLG.open; const t = run.nearSunk ? kb('E') + '沈みし城に入る' : run.map.sealed ? '大扉は固く閉ざされている' : kb('E') + '城を出る（沈んだ城下町へ）'; if (pr._h !== t) { pr.innerHTML = t; pr._h = t; } }
   else if (run.nearCaptive || (run.upPrompt && !run.stairsPrompt)) { pr.hidden = DLG.open; const t = run.nearCaptive ? `${kb('E')}囚われの${CLASSES[run.nearCaptive.cls].name}を助ける` : kb('E') + '上り階段：街へ戻る'; if (pr._h !== t) { pr.innerHTML = t; pr._h = t; } }
-  else { pr.hidden = !run.stairsPrompt; const t = run.bossAlive ? 'ボスを倒すと階段が開きます' : run.floor >= MAX_FLOOR ? kb('E') + '地上へ戻る' : TOUCH.on ? '下の階へ' : '<kbd>E</kbd> 下の階へ　<kbd>T</kbd> 帰還の巻物'; if (pr._h !== t) { pr.innerHTML = t; pr._h = t; } }
-  const sc = $('#scard'), si = nl ? { it: nl.it } : run.town && run.near && run.near.id === 'item' ? run.near.si : null;
-  if (si && !DLG.open) { if (sc._it !== si.it) { sc._it = si.it; sc.innerHTML = itemCard(si.it, { compare: bestCompare(si.it) }) ; } sc.hidden = false; } else if (!sc.hidden) { sc.hidden = true; sc._it = null; }
+  else { pr.hidden = !run.stairsPrompt; const t = run.bossAlive ? 'ボスを倒すと階段が開きます' : run.floor >= MAX_FLOOR ? kb('E') + '地上へ戻る' : TOUCH.on ? '下の階へ' : '<kbd data-pad="A">E</kbd> 下の階へ　<kbd data-pad="↓">T</kbd> 帰還の巻物'; if (pr._h !== t) { pr.innerHTML = t; pr._h = t; } }
+  if (nl && nl.relic && !nl._card) nl._card = makeRelicItem(nl.relic, { uid: -1 }); // 未鑑定の遺物：拾う前にも説明を出す（番号は使わない仮の品）
+  const sc = $('#scard'), si = nl ? { it: nl.it || nl._card } : run.town && run.near && run.near.id === 'item' ? run.near.si : null;
+  if (si && !DLG.open) { if (sc._it !== si.it) { sc._it = si.it; sc.innerHTML = itemCard(si.it, si.it.relic ? {} : { compare: bestCompare(si.it) }) ; } sc.hidden = false; } else if (!sc.hidden) { sc.hidden = true; sc._it = null; }
   // スマホ：性能カードは左上に小さく出し、「拾う」ボタンはカードのすぐ下（横向きは右下）にくっつけて重ならないようにする
   if (TOUCH.on && !sc.hidden && !pr.hidden) { const r = sc.getBoundingClientRect(), port = innerHeight > innerWidth, ph = pr.offsetHeight || 40;
     const L = port ? Math.max(8, r.left + r.width / 2 - pr.offsetWidth / 2) : r.right + 10, Tp = port ? r.bottom + 8 : Math.max(r.top, r.bottom - ph), k = (L | 0) + ':' + (Tp | 0);
@@ -11169,6 +11217,23 @@ function renderMenu() {
   else renderOpts(body);
   } catch (err) { console.error(err); body.innerHTML = `<div class="hint">この画面を表示できませんでした（${esc(String(err && err.message || err))}）。閉じてもう一度開いてください。</div>`; }
 }
+// 今かかっているバフ・デバフ（装備画面のステータス詳細に出す）。頭上やパーティ欄の札と同じ一覧に、効果の中身と残り時間を添える
+const FX_DESC = { protect: '受ける物理ダメージ −30%', boost: '与えるダメージ +25%', atkUp: '与えるダメージ +20%', haste: '移動速度 +25%・攻撃速度 +35%', brand: m => `物理の攻撃が${(ELEM[m.brandElem] || ELEM.fire).name}属性になる`,
+  venom: '攻撃した敵を毒にする', jester: '与えるダメージ +30%・攻撃速度 +20%', dusk: '与えるダメージ +40%', taunt: '敵の狙いを引きつけ、受けるダメージ −40%', barrier: m => `受けたダメージを先に吸収する（残り ${fmt(m.barrier)}）`,
+  slow: '移動速度 −45%', curse: '与えるダメージ −20%', pois: '1秒ごとに最大HPの2.5%のダメージ' };
+const FX_BAD = new Set(['slow', 'curse', 'pois']);
+const BLESS_FX = { war: ['戦神の加護', '攻撃力 +15%'], life: ['聖母の加護', '最大HP +20%・防御力 +10%'], luck: ['幸運の加護', 'ドロップ品質 +50%・獲得ゴールド +30%'] };
+function effectRows(ci) {
+  const m = G.run && G.run.members && G.run.members[ci]; if (!m) return [];
+  const rows = (m.dead ? [] : buffList(m)).map(s => { const d = FX_DESC[s.id]; return { k: s.k, c: s.c, n: s.n, d: typeof d === 'function' ? d(m) : d || '', t: s.id === 'barrier' ? '' : `残り${Math.max(1, Math.ceil(s.t))}秒`, bad: FX_BAD.has(s.id) }; });
+  if (m.chill > 0.02) rows.push({ k: '凍', c: '#bfeaff', n: '凍え', d: `たまりきると凍りついて動けなくなる（${Math.round(m.chill * 100)}%）。炎の攻撃で温まる`, t: '', bad: true });
+  const B = G.save.bless && BLESS_FX[G.save.bless]; if (B) rows.push({ k: '祝', c: '#f4d35e', n: B[0], d: B[1] + '。街に戻るまで続く（下の数値に反映済み）', t: '', bad: false });
+  return rows; }
+function effectsBlock(ci) {
+  const R0 = effectRows(ci);
+  if (!R0.length) return '<div class="fxl"><div class="fxh">いまかかっている効果</div><div class="fxnone">なし</div></div>';
+  return '<div class="fxl"><div class="fxh">いまかかっている効果</div>' + R0.map(r => `<div class="fxr${r.bad ? ' bad' : ''}"><i style="--c:${r.c}">${r.k}</i><b>${esc(r.n)}</b><span>${esc(r.d)}</span>${r.t ? `<small>${r.t}</small>` : ''}</div>`).join('')
+    + (R0.some(r => r.t) ? '<div class="fxnote">一時的な効果は、下の数値には含まれていません</div>' : '') + '</div>'; }
 function statsBlock(s) {
   const rows = [['maxHp', '最大HP', fmt(s.maxHp)], ['atkF', '攻撃力', fmt(s.atkF)], ['defF', '防御力', fmt(s.defF)], ['aspd', '攻撃速度', s.aspdF.toFixed(2) + '/秒'], ['crit', '会心率', Math.round(Math.min(1, s.crit) * 100) + '%'], ['cd', '会心ダメージ', Math.round((1.5 + s.critDmg) * 100) + '%']];
   let h = '<div class="stats">' + rows.map(r => `<div><span>${r[1]}</span><b>${r[2]}</b></div>`).join('') + '</div><div class="stats2">';
@@ -11197,11 +11262,11 @@ function renderEquip(body) {
   h += '<div class="slots">' + SLOTS.map(i => { const it = m.gear[i], w = isWeapon(it), sk = w ? st.wsk[i] : null;
     return `<div class="slot${it ? ' r' + it.r : ''}${w && i === act ? ' act' : ''}${UI.selSlot === i && it ? ' sel' : ''}" data-sl="${i}"><span class="snum">${i + 1}</span>${it ? iconImg(it) : '<img alt="" style="visibility:hidden">'}<span class="sinfo">${it ? `<span class="sv" style="color:${RARITY[it.r].css}">${esc(it.name)}${it.plus ? ' +' + it.plus : ''}</span><small>${w ? (i === act ? '使用中・' : '') + '技「' + esc(sk.name) + '」' + sk.charge.toFixed(1) + '秒' : BASES[it.b].name + (armorKind(it) && !isLive(m, it) ? '・<em class="dead">無効（' + (armorKind(it) === 'shield' ? '盾' : '防具') + 'は1つまで）</em>' : '')}</small>` : '<span class="sv empty">空き</span>'}</span>${it ? `<span class="sbtn">${w && i !== act ? `<button class="sm" data-use="${i}">持つ</button>` : ''}${m.hired ? '' : `<button class="sm" data-off="${i}">外す</button>`}</span>` : ''}</div>`; }).join('') + '</div>';
   const portT = TOUCH.on && innerHeight > innerWidth; // スマホ縦はバッグまでが遠くならないよう、ステータス詳細は最初は閉じておく
-  h += '<details class="stbox" ' + ((portT ? UI.stOpenP : UI.stOpen) ? 'open' : '') + '><summary>ステータス詳細</summary>' + statsBlock(st) + '</details></div>';
+  const nfx = effectRows(ci).length; h += '<details class="stbox" ' + ((portT ? UI.stOpenP : UI.stOpen) ? 'open' : '') + '><summary>ステータス詳細' + (nfx ? `<span class="fxcnt">効果 ${nfx}</span>` : '') + '</summary>' + effectsBlock(ci) + statsBlock(st) + '</details></div>';
   h += `<div class="eq-r"><div class="invbar"><span>バッグ ${G.save.inv.length}/${BAG_MAX}</span>${relicList().length ? `<span class="relicc" title="街の鑑定士に見てもらおう">未鑑定の遺物 ${relicList().length}</span>` : ''}
     <select id="fsel"><option value="all">すべて</option><option value="mine">得意な武器</option><option value="w">武器</option><option value="a">防具・盾</option><option value="j">装飾</option></select>
     <select id="ssel"><option value="new">新しい順</option><option value="rar">レアリティ順</option><option value="pow">評価値順</option></select>
-    <button id="bulk" class="sm">一括分解…</button></div><div id="bulkbox" hidden></div><div class="grid" id="grid"></div><div class="ghint">${TOUCH.on ? 'タップで選択 → 番号ボタンで装備' : 'クリックで選択・ダブルクリックで装備・ドラッグでスロットへ'}</div></div><div class="eq-d" id="detail"></div></div>`;
+    <button id="bulk" class="sm">一括分解…</button></div><div id="bulkbox" hidden></div><div class="grid" id="grid"></div><div class="ghint">${TOUCH.on ? 'タップで選択 → 番号ボタンで装備' : PAD.on ? '<kbd data-pad="A">A</kbd> 選択 → 番号ボタンで装備・<kbd data-pad="X">X</kbd> すばやく装備' : 'クリックで選択・ダブルクリックで装備・ドラッグでスロットへ'}</div></div><div class="eq-d" id="detail"></div></div>`;
   body.innerHTML = h;
   bindWho(body, () => renderEquip(body));
   body.querySelectorAll('.slot').forEach(el => { const sl = +el.dataset.sl, it = m.gear[sl];
@@ -11250,6 +11315,7 @@ function renderDetail(pv) {
   if (!it) { if (UI.sel && G.save.inv.includes(UI.sel)) it = UI.sel; else if (UI.selSlot != null && m.gear[UI.selSlot]) { it = m.gear[UI.selSlot]; slot = UI.selSlot; } }
   const key = (it ? it.id + ':' + (slot != null ? 's' + slot : 'i') + ':' + it.lock + ':' + it.plus : '-') + ':' + UI.ci + ':' + m.gear.map(g => g ? g.id : 0).join(',') + ':' + G.save.inv.length + ':' + (pv ? 'p' : 's');
   if (d._k === key) return; d._k = key; d.classList.toggle('empty', !it);
+  if (!it && PAD.on) { d.innerHTML = `<div class="dhelp"><b>装備の変え方</b><ul><li>バッグのアイテムに合わせて <kbd data-pad="A">A</kbd> で選び、番号ボタンで装備</li><li><kbd data-pad="X">X</kbd> で空きスロット（か同じ種類）へすばやく装備</li><li>スロットで <kbd data-pad="A">A</kbd> を押すと外す・持ち替えができます</li></ul><small>カーソルを合わせると、ここに性能と装備した時の変化が出ます。武器は <kbd data-pad="LB">LB</kbd><kbd data-pad="RB">RB</kbd> で持ち替え。持っている武器の技はすべて並行してチャージされます。</small></div>`; return; }
   if (!it) { d.innerHTML = `<div class="dhelp"><b>装備の変え方</b><ul><li>バッグのアイテムを<b>クリック</b>で選び、右の番号ボタンで装備</li><li><b>ダブルクリック</b>で空きスロット（か同じ種類）へ装備</li><li>アイコンを<b>ドラッグ</b>してスロットへ</li><li>スロットをクリックすると外す・持ち替えができます</li></ul><small>カーソルを合わせると、ここに性能と装備した時の変化が出ます。武器は数字キー 1〜4 で持ち替え。持っている武器の技はすべて並行してチャージされます。</small></div>`; return; }
   const inBag = slot == null, sl = inBag ? slotFor(m, it) : slot;
   let btn = '';
@@ -11407,20 +11473,31 @@ function perfFrame(fms, upd, drw, hud) {
   const f = document.getElementById('pfps'); f.textContent = fps.toFixed(0) + ' fps'; f.className = fps >= 50 ? '' : fps >= 28 ? 'mid' : 'bad';
   const row = (a, b) => `<div class="pr"><span>${a}</span>${b}</div>`;
   document.getElementById('ptx').innerHTML = row('1フレーム', `${avg.toFixed(1)}ms（最遅 ${PERF.worst.toFixed(0)}）`) + row('処理 更新/描画/UI', `${(PERF.upd * k).toFixed(1)}/${(PERF.drw * k).toFixed(1)}/${(PERF.hud * k).toFixed(1)}`)
-    + row('描画数', `${fmt(st.inst | 0)}個・${st.calls}回`) + row('解像度', `${bw}×${bh}（${Math.round(R.scale * 100)}%）`) + row('画質', `${['低', '中', '高'][q] || q}・${R.msaa ? 'MSAA' : 'FXAA'}${R.hdr ? '' : '・LDR'}`);
+    + row('描画数', `${fmt(st.inst | 0)}個・${st.calls}回`) + row('解像度', `${bw}×${bh}`) + row('画質', `${{ '-1': '最低', 0: '低', 1: '中', 2: '高' }[q] || q}・${R.msaa ? 'MSAA' : 'FXAA'}${R.hdr ? '' : '・LDR'}`);
   PERF.t = 0; PERF.n = 0; PERF.sum = 0; PERF.upd = PERF.drw = PERF.hud = 0; PERF.worst = 0;
 }
+// 全画面表示：ブラウザの全画面（Fullscreen API）。埋め込み表示などで使えない時は案内を出す
+function fsOn() { if (NATIVE) return NATIVE.isFullscreen(); return !!(document.fullscreenElement || document.webkitFullscreenElement); }
+function fsOK() { if (NATIVE) return true; const el = document.documentElement; return !!((document.fullscreenEnabled || document.webkitFullscreenEnabled) && (el.requestFullscreen || el.webkitRequestFullscreen)); }
+function toggleFullscreen() { const d = document, el = d.documentElement; if (NATIVE) { NATIVE.setFullscreen(!NATIVE.isFullscreen()); return Promise.resolve(); } // Steam版はウィンドウごと全画面に（Escでは戻らない）
+  try { if (fsOn()) return Promise.resolve((d.exitFullscreen || d.webkitExitFullscreen).call(d));
+    const fn = el.requestFullscreen || el.webkitRequestFullscreen; if (!fn) return Promise.reject(new Error('unsupported')); return Promise.resolve(fn.call(el, { navigationUI: 'hide' })); } catch (e) { return Promise.reject(e); } }
+for (const ev of ['fullscreenchange', 'webkitfullscreenchange']) document.addEventListener(ev, () => { UI.fsErr = false; if (G.menu && $('#fsb')) renderMenu(); });
+if (NATIVE && NATIVE.onFullscreen) NATIVE.onFullscreen(() => { if (G.menu && $('#fsb')) renderMenu(); }); // F11・Alt+Enterで切り替えた時も表示を合わせる
 function renderOpts(body) {
   const o = G.save.opts;
   const sl = (id, label, v) => `<label class="vol"><span>${label}</span><input type="range" id="${id}" min="0" max="100" value="${Math.round(v * 100)}"><b>${Math.round(v * 100)}</b></label>`;
   let h = `<div class="opts"><section><h3>サウンド <small>M キーで消音</small></h3>${sl('vM', '全体', o.vMaster)}${sl('vS', '効果音', o.vSfx)}${sl('vB', 'BGM・環境音', o.vBgm)}</section>
-    <section><h3>画質 <small>重いときは自動で解像度を下げます（現在 ${Math.round(R.scale * 100)}%）</small></h3><div class="cbtns">${[['2', '高（影・MSAA）'], ['1', '中（FXAA）'], ['0', '低（FXAA）']].map(([v, n]) => `<button class="sm${String(o.quality) === v ? ' on' : ''}" data-q="${v}">${n}</button>`).join('')}</div>
+    <section><h3>表示</h3><div class="cbtns"><button class="sm${fsOn() ? ' on' : ''}" id="fsb"${fsOK() ? '' : ' disabled'}>全画面表示 ${fsOn() ? 'ON' : 'OFF'}</button></div>
+      <div class="hint">${!fsOK() ? 'いまの開き方では全画面にできません。ブラウザの全画面表示（パソコンは F11 キー）を使ってください。' : UI.fsErr ? '全画面にできませんでした。ブラウザの全画面表示（パソコンは F11 キー）を使ってください。' : NATIVE ? '画面いっぱいに表示します。F11 キーか Alt＋Enter でも切り替えられます。' : '画面いっぱいに表示します。もう一度押すか、Esc キーで元に戻ります。'}</div></section>
+    <section><h3>画質</h3><div class="cbtns">${[['2', '高（影・MSAA）'], ['1', '中（FXAA）'], ['0', '低（FXAA）'], ['-1', '最低（軽さ優先）']].map(([v, n]) => `<button class="sm${String(o.quality) === v ? ' on' : ''}" data-q="${v}">${n}</button>`).join('')}</div>
       <div class="cbtns" style="margin-top:6px"><button class="sm${o.perf ? ' on' : ''}" id="perfb">パフォーマンス表示 ${o.perf ? 'ON' : 'OFF'}</button><button class="sm${o.screenFx !== false ? ' on' : ''}" id="sfxb">画面のゆがみ・ブラー ${o.screenFx !== false ? 'ON' : 'OFF'}</button></div>
-      <div class="hint">パフォーマンス表示：FPS・1フレームの時間・描画数・解像度を左上に出します。画面のゆがみ：衝撃波・陽炎・放射ブラー（酔いやすい人はOFFに）。</div></section>
+      <div class="hint">最低：解像度をさらに下げ、光のにじみ・画面のゆがみ・細かい粒・遠くの明かりを省きます（いちばん軽い）。<br>パフォーマンス表示：FPS・1フレームの時間・描画数・解像度を左上に出します。画面のゆがみ：衝撃波・陽炎・放射ブラー（酔いやすい人はOFFに）。</div></section>
     <section><h3>近づいたときに自動で分解</h3><div class="cbtns">${[['0', 'しない'], ['1', 'コモン'], ['2', 'マジック以下'], ['3', 'レア以下']].map(([v, n]) => `<button class="sm${String(o.autoSalvage) === v ? ' on' : ''}" data-as="${v}">${n}</button>`).join('')}</div><div class="hint">レジェンドとセットは分解されません。</div></section>
     <section><h3>補助</h3><div class="cbtns"><button class="sm${o.autoPotion ? ' on' : ''}" id="apot">HP30%以下で自動で回復薬 ${o.autoPotion ? 'ON' : 'OFF'}</button><button class="sm${o.autoCast ? ' on' : ''}" id="acast">リーダーの技も自動 ${o.autoCast ? 'ON' : 'OFF'}</button><button class="sm${o.autoSwap !== false ? ' on' : ''}" id="aswap">技がチャージ中なら撃てる武器へ持ち替え ${o.autoSwap !== false ? 'ON' : 'OFF'}</button><button class="sm${o.dmgText ? ' on' : ''}" id="dmgt">ダメージ数字 ${o.dmgText ? 'ON' : 'OFF'}</button></div></section>
     <section><h3>記録</h3><div class="stats"><div><span>撃破数</span><b>${fmt(G.save.stats.kills)}</b></div><div><span>レジェンド入手</span><b>${G.save.stats.legends}</b></div><div><span>元素反応</span><b>${fmt(G.save.stats.reactions)}</b></div><div><span>最高到達</span><b>B${G.save.maxFloor}</b></div></div></section>
-    ${TOUCH.on ? `<section><h3>操作（タッチ）</h3><div class="keys tkeys"><div><b>画面の左側をドラッグ</b>：リーダー移動</div><div>通常攻撃は自動。<b>右下の技ボタン</b>（押し続けると連発）で近くの敵へ<b>使用中の武器の技</b>。画面の右側をタップすると、その場所へ技を撃てます</div><div>下のスロットをタップで武器を持ち替え。技のチャージは武器ごと</div><div><b>交代ボタン</b>かリーダー欄のタップでリーダー切替</div><div>薬・爆弾・帰還の巻物は下のボタンから（爆弾は近くの敵へ投げる・壁も壊す）</div><div>階段・話す・宝箱は画面に出るボタンをタップ。<b>2本指でつまむ</b>とズーム</div><div>扉や岩はぶつかって開ける・壊す。仲間はリーダーの歩いた跡をたどってついてきます。</div></div></section>` : `<section><h3>操作</h3><div class="keys"><div><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> / 右クリック長押し：リーダー移動</div><div>通常攻撃は自動。<b>左クリック</b>（長押しで連発）でカーソルの方向・位置に<b>使用中の武器の技</b></div><div><kbd>1</kbd>〜<kbd>4</kbd> 下のスロットの武器に持ち替え（枠が金色なのが使用中）。技のチャージは武器ごと</div><div><kbd>Tab</kbd> リーダー切替（パーティ欄のクリックでも可）</div><div><kbd>Q</kbd> 回復薬　<kbd>R</kbd> 魔力の薬　<kbd>F</kbd> 爆弾（カーソルへ投げる・壁も壊す）　<kbd>T</kbd> 帰還の巻物</div><div><kbd>E</kbd> 階段・話す・宝箱　<kbd>I</kbd> メニュー　<kbd>ホイール</kbd> ズーム　<kbd>M</kbd> 消音</div><div>扉や岩はぶつかって開ける・壊す。扉の先は開けるまで見えない。仲間はリーダーの歩いた跡をたどってついてきます。</div></div></section>`}
+    ${TOUCH.on ? `<section><h3>操作（タッチ）</h3><div class="keys tkeys"><div><b>画面の左側をドラッグ</b>：リーダー移動</div><div>通常攻撃は自動。<b>右下の技ボタン</b>（押し続けると連発）で近くの敵へ<b>使用中の武器の技</b>。画面の右側をタップすると、その場所へ技を撃てます</div><div>下のスロットをタップで武器を持ち替え。技のチャージは武器ごと</div><div><b>交代ボタン</b>かリーダー欄のタップでリーダー切替</div><div>薬・爆弾・帰還の巻物は下のボタンから（爆弾は近くの敵へ投げる・壁も壊す）</div><div>階段・話す・宝箱は画面に出るボタンをタップ。<b>2本指でつまむ</b>とズーム</div><div>扉や岩はぶつかって開ける・壊す。仲間はリーダーの歩いた跡をたどってついてきます。</div></div></section>` : `<section class="kbonly"><h3>操作</h3><div class="keys"><div><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> / 右クリック長押し：リーダー移動</div><div>通常攻撃は自動。<b>左クリック</b>（長押しで連発）でカーソルの方向・位置に<b>使用中の武器の技</b></div><div><kbd>1</kbd>〜<kbd>4</kbd> 下のスロットの武器に持ち替え（枠が金色なのが使用中）。技のチャージは武器ごと</div><div><kbd>Tab</kbd> リーダー切替（パーティ欄のクリックでも可）</div><div><kbd>Q</kbd> 回復薬　<kbd>R</kbd> 魔力の薬　<kbd>F</kbd> 爆弾（カーソルへ投げる・壁も壊す）　<kbd>T</kbd> 帰還の巻物</div><div><kbd>E</kbd> 階段・話す・宝箱　<kbd>I</kbd> メニュー　<kbd>ホイール</kbd> ズーム　<kbd>M</kbd> 消音</div><div>扉や岩はぶつかって開ける・壊す。扉の先は開けるまで見えない。仲間はリーダーの歩いた跡をたどってついてきます。</div></div></section><section class="padonly"><h3>操作（コントローラー）</h3><div class="keys"><div><kbd data-pad="LS">L</kbd> リーダー移動　<kbd data-pad="L3">L3</kbd> ズーム</div><div>通常攻撃は自動。<kbd data-pad="RS">R</kbd> 倒した方向へ<b>使用中の武器の技</b>　<kbd data-pad="RT">RT</kbd> 近くの敵へ技（押し続けると連発）</div><div><kbd data-pad="LB">LB</kbd><kbd data-pad="RB">RB</kbd> 下のスロットの武器に持ち替え。技のチャージは武器ごと</div><div><kbd data-pad="A">A</kbd> 階段・話す・宝箱　<kbd data-pad="Y">Y</kbd> リーダー切替　<kbd data-pad="X">X</kbd> 地図</div><div>十字キー：<kbd data-pad="↑">↑</kbd> 回復薬　<kbd data-pad="←">←</kbd> 魔力の薬　<kbd data-pad="→">→</kbd> 爆弾（近くの敵へ投げる・壁も壊す）　<kbd data-pad="↓">↓</kbd> 帰還の巻物</div><div><kbd data-pad="MENU">≡</kbd> メニュー。メニューでは十字キーで選び <kbd data-pad="A">A</kbd> 決定・<kbd data-pad="B">B</kbd> 閉じる・<kbd data-pad="X">X</kbd> すばやく装備・<kbd data-pad="LB">LB</kbd><kbd data-pad="RB">RB</kbd> タブ切替・<kbd data-pad="RS">R</kbd> スクロール</div></div></section>`}
+    ${NATIVE ? '<section><h3>ゲーム</h3><button class="sm" id="quitb">ゲームを終了</button><div class="hint">いまの状態を保存してから終了します。</div></section>' : ''}
     <section><h3>データ</h3><button class="sm warn" id="rst">${UI.confirmReset ? '本当に最初からにする（押すと削除）' : 'セーブを消して最初から'}</button></section></div>`;
   body.innerHTML = h;
   const vol = () => { SFX.setVol({ master: o.vMaster, sfx: o.vSfx, bgm: o.vBgm }); };
@@ -11428,12 +11505,14 @@ function renderOpts(body) {
   body.querySelectorAll('[data-q]').forEach(b => b.onclick = () => { o.quality = +b.dataset.q; R.setQuality(o.quality); renderOpts(body); });
   body.querySelectorAll('[data-as]').forEach(b => b.onclick = () => { o.autoSalvage = +b.dataset.as; renderOpts(body); });
   $('#dmgt').onclick = () => { o.dmgText = !o.dmgText; renderOpts(body); };
+  { const fb = $('#fsb'); if (fb) fb.onclick = () => { SFX.play('ui'); toggleFullscreen().then(() => setTimeout(() => { if (G.menu && $('#fsb')) renderOpts(body); }, 150)).catch(() => { UI.fsErr = true; renderOpts(body); }); }; }
   $('#perfb').onclick = () => { o.perf = !o.perf; renderOpts(body); };
   $('#sfxb').onclick = () => { o.screenFx = o.screenFx === false; renderOpts(body); };
   $('#apot').onclick = () => { o.autoPotion = !o.autoPotion; renderOpts(body); };
   $('#acast').onclick = () => { o.autoCast = !o.autoCast; renderOpts(body); };
   $('#aswap').onclick = () => { o.autoSwap = o.autoSwap === false; renderOpts(body); };
-  $('#rst').onclick = () => { if (!UI.confirmReset) { UI.confirmReset = true; renderOpts(body); return; } UI.confirmReset = false; try { localStorage.removeItem(SAVE_KEY); } catch (e) { } location.reload(); };
+  { const qb = $('#quitb'); if (qb) qb.onclick = quitGame; }
+  $('#rst').onclick = () => { if (!UI.confirmReset) { UI.confirmReset = true; renderOpts(body); return; } UI.confirmReset = false; try { STORE.del(SAVE_KEY); } catch (e) { } location.reload(); };
 }
 
 // ---------- 街の施設 ----------
@@ -11576,7 +11655,7 @@ function renderStorage(body) {
   h += `<div class="fsec">${paneHead('bag', 'バッグ', cnt(VI, inv, BAG_MAX), `<button class="sm" id="depAll" ${depL.length ? '' : 'disabled'}>${ico('deposit')}${on || F.fam ? '表示中を預ける' : 'ロック以外を全部預ける'}</button>`)}<div class="fgrid">${VI.map(it => itemCell(it, it === sel)).join('') || `<div class="hint">${inv.length ? '条件に合う品はありません' : '空です'}</div>`}</div></div>`;
   h += `<div class="fsec">${paneHead('storage', '倉庫', cnt(VS, st, STORE_MAX), `<button class="sm" id="wdAll" ${VS.length && inv.length < BAG_MAX ? '' : 'disabled'}>${ico('withdraw')}${on || F.fam ? '表示中を引き出す' : '入るだけ引き出す'}</button>`)}<div class="fgrid">${VS.map(it => itemCell(it, it === sel)).join('') || `<div class="hint">${st.length ? '条件に合う品はありません' : '空です'}</div>`}</div></div>`;
   const inBag = sel && inv.includes(sel);
-  h += selPane(sel, sel ? `<button class="cbtn big" id="mv">${ico(inBag ? 'deposit' : 'withdraw')}${inBag ? '倉庫へ預ける' : 'バッグへ引き出す'}</button>` : '', `${ico('storage')}<p>品物を${TOUCH.on ? 'タップ' : 'クリック'}で選ぶ<br><small>${TOUCH.on ? '2回タップ' : 'ダブルクリック'}ですぐ出し入れ</small></p>`) + '</div>';
+  h += selPane(sel, sel ? `<button class="cbtn big" id="mv">${ico(inBag ? 'deposit' : 'withdraw')}${inBag ? '倉庫へ預ける' : 'バッグへ引き出す'}</button>` : '', `${ico('storage')}<p>品物を${TOUCH.on ? 'タップ' : PAD.on ? 'Aボタン' : 'クリック'}で選ぶ<br><small>${TOUCH.on ? '2回タップ' : PAD.on ? 'Xボタン' : 'ダブルクリック'}ですぐ出し入れ</small></p>`) + '</div>';
   body.innerHTML = h;
   const re = () => keepScroll(body, () => renderStorage(body));
   bindCells(body, [...inv, ...st], it => { UI.stSel = it; re(); }, move);
@@ -11607,7 +11686,7 @@ function renderShop(body) {
   let act = '';
   if (selB) act = `<button class="cbtn big" id="buyB" ${G.save.gold >= selB.price && inv.length < BAG_MAX ? '' : 'disabled'}>${ico('withdraw')}買い戻す <span class="cst coin">${ico('coin')}${fmt(selB.price)}</span></button>${inv.length >= BAG_MAX ? `<div class="note">${ico('warn')}バッグがいっぱいです</div>` : ''}`;
   else if (sel) act = sel.lock ? `<div class="note">${ico('lock')}ロック中は売れません</div>` : `<button class="cbtn big sellb" id="sellOne">${ico('sell')}売る <span class="cst coin">${ico('coin')}${fmt(itemValue(sel))}</span></button>`;
-  h += selPane(selB ? selB.it : sel, act, `${ico('sell')}<p>売りたい品を${TOUCH.on ? 'タップ' : 'クリック'}<br><small>${TOUCH.on ? '2回タップ' : 'ダブルクリック'}ですぐ売る・買い戻す</small></p>`) + '</div>';
+  h += selPane(selB ? selB.it : sel, act, `${ico('sell')}<p>売りたい品を${TOUCH.on ? 'タップ' : PAD.on ? 'Aボタン' : 'クリック'}<br><small>${TOUCH.on ? '2回タップ' : PAD.on ? 'Xボタン' : 'ダブルクリック'}ですぐ売る・買い戻す</small></p>`) + '</div>';
   body.innerHTML = h;
   body.querySelectorAll('[data-cons]').forEach(b => b.onclick = () => { const k = b.dataset.cons, n = Math.max(1, +b.dataset.n), pr = consPrice(k); let c = 0; for (let i = 0; i < n; i++) { if (G.save.gold < pr || G.save.items[k] >= itemMax(k)) break; G.save.gold -= pr; G.save.items[k]++; c++; } if (c) SFX.play('coin'); renderShop(body); });
   bindCells(body, inv, it => { UI.shopSel = it; UI.shopSelB = null; renderShop(body); }, it => sell([it]));
@@ -11627,7 +11706,7 @@ function renderSmithBuy(body) {
   h += `<div class="fcols sell"><div class="fcol"><div class="fsec">${paneHead('coin', '装備を買う', stock.length + '品', '<small class="phint">品揃えは最高到達階が進むと新しくなる</small>')}<div class="fgrid">${stock.map(it => itemCell(it, it === sel, `<span class="cprice${G.save.gold >= price(it) ? '' : ' bad'}">${fmt(price(it))}</span>`)).join('') || '<div class="hint">今は売り切れだ。もっと深く潜ったら、また来な。</div>'}</div></div></div>`;
   const ok = sel && G.save.gold >= price(sel) && G.save.inv.length < BAG_MAX;
   const act = sel ? `<button class="cbtn big" id="buyIt" ${ok ? '' : 'disabled'}>${ico('coin')}買う <span class="cst coin">${ico('coin')}${fmt(price(sel))}</span></button>${G.save.gold < price(sel) ? `<div class="note">${ico('warn')}お金が足りません</div>` : G.save.inv.length >= BAG_MAX ? `<div class="note">${ico('warn')}バッグがいっぱいです</div>` : ''}` : '';
-  h += selPane(sel, act, `${ico('coin')}<p>欲しい品を${TOUCH.on ? 'タップ' : 'クリック'}<br><small>${TOUCH.on ? '2回タップ' : 'ダブルクリック'}ですぐ買う</small></p>`) + '</div>';
+  h += selPane(sel, act, `${ico('coin')}<p>欲しい品を${TOUCH.on ? 'タップ' : PAD.on ? 'Aボタン' : 'クリック'}<br><small>${TOUCH.on ? '2回タップ' : PAD.on ? 'Xボタン' : 'ダブルクリック'}ですぐ買う</small></p>`) + '</div>';
   body.innerHTML = h; bindSmithTabs(body);
   bindCells(body, stock, it => { UI.smBuy = it; renderSmith(body); }, buy);
   if ($('#buyIt')) $('#buyIt').onclick = () => buy(sel);
@@ -11852,7 +11931,7 @@ for (const n of ['renderStorage', 'renderShop', 'renderSmith', 'renderMerchant',
 // 左側をドラッグ：移動スティック / 右側をタップ：その場所へ技 / 技ボタン：近くの敵へ自動で技
 // 2本指ピンチ：ズーム / 交代ボタン：リーダー切り替え
 const TP = { pts: new Map(), joyId: null, ox: 0, oy: 0, aimId: null, pinch: null, img: '' };
-function kb(k) { return TOUCH.on ? '' : `<kbd>${k}</kbd> `; }
+function kb(k) { const g = padGlyph(k); return TOUCH.on ? '' : `<kbd${g ? ` data-pad="${g}"` : ''}>${k}</kbd> `; } // ゲームパッドで遊んでいる時はボタンの記号に（CSSで切り替え）
 function cycleLeader() { if (!G.run) return; const M = G.run.members, N = M.length; for (let k = 1; k <= N; k++) { const i = (G.run.leader + k) % N; if (!M[i].dead) { G.run.leader = i; SFX.play('ui'); break; } } }
 function setTouchMode(on) {
   if (TOUCH.on === on) return; TOUCH.on = on; document.body.classList.toggle('touch', on);
@@ -11924,6 +12003,149 @@ function updateTouchHud() {
   const txt = c > 0.05 ? (c >= 10 ? String(Math.ceil(c)) : c.toFixed(1)) : ''; const ct = sb.querySelector('.ct'); if (ct._t !== txt) { ct._t = txt; ct.textContent = txt; }
   const nomp = L.mp < sk.mp; sb.classList.toggle('ready', c <= 0 && !nomp); sb.classList.toggle('nomp', nomp && c <= 0);
   const alive = G.run.members.filter(m => !m.dead).length; $('#tswap').hidden = G.run.members.length < 2 || alive < 2;
+}
+
+// ===== ゲームパッド操作（Xbox配置。Steam Deck の内蔵コントローラーもこの配置で届く） =====
+// フィールド：左スティック 移動 / 右スティック その方向へ技 / RT 近くの敵へ技 / A 調べる・拾う / Y リーダー交代 / LB・RB 武器の持ち替え
+//            十字キー 道具（↑回復薬 ←魔力の薬 →爆弾 ↓帰還の巻物） / X・View 地図 / Menu 装備メニュー / L3 ズーム
+// メニュー・タイトル：十字キー・左スティック カーソル / A 決定 / B 戻る / X すばやく装備（ダブルクリックと同じ） / LB・RB タブ / 右スティック スクロール
+const PAD = { on: false, mv: null, aim: null, fire: false, prev: [], held: {}, focus: null, sig: null, rect: null, layer: '', rep: { k: null, t: 0 }, mdist: 0, zoom: 1 };
+const PB = { A: 0, B: 1, X: 2, Y: 3, LB: 4, RB: 5, LT: 6, RT: 7, VIEW: 8, MENU: 9, L3: 10, R3: 11, UP: 12, DOWN: 13, LEFT: 14, RIGHT: 15 };
+const PAD_ITEM = { UP: 'potion', LEFT: 'ether', RIGHT: 'bomb', DOWN: 'scroll' }; // 十字キーで使う道具
+const PAD_GLYPH = { E: 'A', Esc: 'B', Escape: 'B', Tab: 'Y', I: 'MENU', Z: 'X', Q: '↑', R: '←', F: '→', T: '↓' }; // キーボードの表示 → パッドのボタン
+const PAD_ZOOM = [18, 25, 34];
+function padGlyph(k) { return PAD_GLYPH[k] || ''; }
+function setPadMode(on) {
+  if (PAD.on === on) return; PAD.on = on; document.body.classList.toggle('pad', on);
+  if (on) { if (TOUCH.on) setTouchMode(false); hideTip(); }
+  else { padBlur(); PAD.mv = null; PAD.aim = null; PAD.fire = false; }
+  if (typeof HUD !== 'undefined') HUD.key = '';
+  if (G.menu && typeof renderMenu === 'function') renderMenu(); // 操作の説明をパッド用・マウス用に描き直す
+}
+function padGet() { const ps = navigator.getGamepads ? navigator.getGamepads() : []; let best = null; for (const p of ps || []) if (p && p.connected && p.buttons.length >= 12) { if (p.mapping === 'standard') return p; best = best || p; } return best; }
+function padStick(x, y, dz = 0.24) { const l = Math.hypot(x, y); if (l < dz) return null; const k = Math.min(1, (l - dz) / (1 - dz)) / l; return [x * k, y * k]; }
+function padKey(code) { const o = { code, key: code, bubbles: true, cancelable: true }; dispatchEvent(new KeyboardEvent('keydown', o)); dispatchEvent(new KeyboardEvent('keyup', o)); }
+// 画面の向き（カメラ）基準の入力 → 世界の向き
+function padWorld(x, y) { const az = R.cam.az, fx = -Math.sin(az), fz = -Math.cos(az), rx = Math.cos(az), rz = -Math.sin(az); const dx = rx * x + fx * y, dz = rz * x + fz * y, l = Math.hypot(dx, dz) || 1; return [dx / l, dz / l]; }
+function padLayer() { if (G.run && typeof DLG !== 'undefined' && DLG.open) return 'dlg'; if (G.menu && !$('#menu').hidden) return 'menu'; if (!G.run) return 'ui'; return 'field'; }
+function padRoot(layer) { return layer === 'menu' ? $('#menu .mwin') : layer === 'ui' ? $('#title') : null; }
+
+// ---------- メニュー・タイトルのカーソル ----------
+function padVisible(el) { if (!el.isConnected || el.disabled) return false; const r = el.getBoundingClientRect(); if (r.width < 2 || r.height < 2) return false; const cs = getComputedStyle(el); return cs.visibility !== 'hidden' && cs.display !== 'none'; }
+function padCands(root) { const out = []; if (!root) return out;
+  for (const el of root.getElementsByTagName('*')) { const t = el.tagName;
+    if (!(t === 'BUTTON' || t === 'SELECT' || t === 'INPUT' || t === 'SUMMARY' || el.onclick || el.ondblclick || el.onpointerdown)) continue;
+    if (t === 'INPUT' && (el.type === 'hidden' || el.type === 'radio')) continue; if (el.closest('[hidden]')) continue; if (padVisible(el)) out.push(el); }
+  return out; }
+function padSig(el) { return el.tagName + '#' + el.id + JSON.stringify(el.dataset) + (el.textContent || '').trim().slice(0, 24); }
+function padBlur() { const f = PAD.focus; if (f) { f.classList.remove('padf'); if (f.isConnected) f.dispatchEvent(new MouseEvent('mouseleave')); } PAD.focus = null; }
+function padFocus(el, quiet) {
+  if (PAD.focus === el) return; const old = PAD.focus; if (old) { old.classList.remove('padf'); if (old.isConnected) old.dispatchEvent(new MouseEvent('mouseleave')); }
+  PAD.focus = el; if (!el) return; el.classList.add('padf'); PAD.sig = padSig(el);
+  try { el.scrollIntoView({ block: 'nearest', inline: 'nearest' }); } catch (e) { }
+  const r = el.getBoundingClientRect(); PAD.rect = r; const ev = { clientX: r.right - 6, clientY: r.top + r.height / 2, bubbles: false };
+  el.dispatchEvent(new MouseEvent('mouseenter', ev)); el.dispatchEvent(new MouseEvent('mouseover', Object.assign({}, ev, { bubbles: true })));
+  if (!quiet && typeof SFX !== 'undefined') SFX.play('ui', { vol: 0.35 });
+}
+// 描き直しで消えたカーソルを、同じ物か一番近い物に戻す。初めては「いちばん押しそうな物」へ
+function padEnsure(root) {
+  const f = PAD.focus; if (f && f.isConnected && root.contains(f) && padVisible(f)) { if (!f.classList.contains('padf')) f.classList.add('padf'); return; }
+  const cs = padCands(root); if (!cs.length) { PAD.focus = null; return; }
+  let pick = null;
+  if (PAD.sig) { const same = cs.filter(c => padSig(c) === PAD.sig); if (same.length) pick = padNearest(same); }
+  if (!pick && PAD.rect && f) pick = padNearest(cs);
+  if (!pick) pick = root.querySelector('.pri:not([disabled])') || cs.find(c => c.closest('.tabs') == null && c.id !== 'mclose') || cs[0];
+  if (pick && !cs.includes(pick)) pick = cs[0];
+  PAD.focus = null; padFocus(pick, true);
+}
+function padNearest(list) { const r = PAD.rect; if (!r) return list[0]; const cx = r.left + r.width / 2, cy = r.top + r.height / 2; let b = null, bd = 1e9; for (const c of list) { const q = c.getBoundingClientRect(), d = Math.hypot(q.left + q.width / 2 - cx, q.top + q.height / 2 - cy); if (d < bd) { bd = d; b = c; } } return b; }
+// 十字キーの方向で、いちばん自然に隣にある物へ（向きの距離＋横ずれの重み）
+function padMove(root, dx, dy) {
+  const cur = PAD.focus; const cs = padCands(root); if (!cs.length) return; if (!cur || !cs.includes(cur)) { padEnsure(root); return; }
+  const a = cur.getBoundingClientRect(); let best = null, bs = 1e9;
+  for (const c of cs) { if (c === cur || c.contains(cur) || cur.contains(c)) continue; const b = c.getBoundingClientRect();
+    let along, ortho;
+    if (dx) { along = dx > 0 ? b.left - a.right : a.left - b.right; if ((dx > 0 ? b.left + b.width / 2 - (a.left + a.width / 2) : a.left + a.width / 2 - (b.left + b.width / 2)) <= 2) continue; ortho = Math.max(0, b.top - a.bottom, a.top - b.bottom); }
+    else { along = dy > 0 ? b.top - a.bottom : a.top - b.bottom; if ((dy > 0 ? b.top + b.height / 2 - (a.top + a.height / 2) : a.top + a.height / 2 - (b.top + b.height / 2)) <= 2) continue; ortho = Math.max(0, b.left - a.right, a.left - b.right); }
+    const s = Math.max(0, along) + ortho * 2.2 + (ortho > 0 ? 40 : 0); if (s < bs) { bs = s; best = c; } }
+  if (best) padFocus(best);
+}
+function padScroll(el, dy) { let s = el; while (s && s !== document.body) { const cs = getComputedStyle(s); if (/(auto|scroll)/.test(cs.overflowY) && s.scrollHeight > s.clientHeight + 2) { s.scrollTop += dy; return; } s = s.parentElement; } }
+function padActivate(el, dbl) {
+  if (!el) return; const t = el.tagName;
+  if (t === 'INPUT' && (el.type === 'text' || el.type === 'number' || !el.type)) { el.focus(); return; }
+  if (t === 'INPUT' && el.type === 'checkbox') { el.click(); return; }
+  if (t === 'SELECT') { padAdjust(el, 1); return; }
+  if (dbl) { el.dispatchEvent(new MouseEvent('dblclick', { bubbles: true })); return; }
+  if (el.onpointerdown && !el.onclick) { el.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, cancelable: true })); return; }
+  el.click();
+}
+function padAdjust(el, d) {
+  if (el.tagName === 'SELECT') { const n = el.options.length; if (!n) return; el.selectedIndex = (el.selectedIndex + d + n) % n; el.dispatchEvent(new Event('change', { bubbles: true })); return true; }
+  if (el.tagName === 'INPUT' && el.type === 'range') { const st = (+el.max - +el.min) / 20 || 1; el.value = clamp(+el.value + d * st, +el.min, +el.max); el.dispatchEvent(new Event('input', { bubbles: true })); el.dispatchEvent(new Event('change', { bubbles: true })); return true; }
+  return false;
+}
+function padTabs(root, d) { const box = [...root.querySelectorAll('.tabs, .stabs')].find(b => !b.hidden && padVisible(b)); if (!box) return; const bs = [...box.querySelectorAll('button')].filter(padVisible); if (!bs.length) return;
+  let i = bs.findIndex(b => b.classList.contains('on')); i = (i < 0 ? 0 : i + d + bs.length) % bs.length; bs[i].click(); PAD.sig = null; PAD.focus = null; }
+function padBack(layer, root) {
+  if (layer === 'menu') { padKey('Escape'); return; }
+  const b = [...root.querySelectorAll('button')].find(x => padVisible(x) && /^(もどる|戻る|やめる|閉じる|キャンセル)/.test((x.textContent || '').trim())); if (b) b.click();
+}
+
+// ---------- 毎フレーム ----------
+function padFrame(dt) {
+  const p = padGet(); if (!p) { if (PAD.on) { PAD.mv = null; PAD.aim = null; PAD.fire = false; } PAD.prev = []; return; }
+  const B = p.buttons.map(b => b && (b.pressed || b.value > 0.5)), prev = PAD.prev; PAD.prev = B;
+  const down = k => B[PB[k]] && !prev[PB[k]], ax = p.axes || [];
+  const ls = padStick(ax[0] || 0, ax[1] || 0), rs = padStick(ax[2] || 0, ax[3] || 0);
+  const any = B.some((b, i) => b && !prev[i]) || ls || rs; if (any && !PAD.on) setPadMode(true); if (!PAD.on) return;
+  if (B.some((b, i) => b && !prev[i]) && typeof SFX !== 'undefined' && !SFX.running) { try { SFX.unlock(); } catch (e) { } } // ボタンでも音が鳴り始めるように（ブラウザが許せば）
+  const layer = padLayer(); if (layer !== PAD.layer) { PAD.layer = layer; padBlur(); PAD.sig = null; PAD.rect = null; PAD.rep.k = null; }
+  // 方向の入力（十字キー＋左スティック）を、押した瞬間と長押しのくり返しに
+  let dir = B[PB.UP] ? 'UP' : B[PB.DOWN] ? 'DOWN' : B[PB.LEFT] ? 'LEFT' : B[PB.RIGHT] ? 'RIGHT' : null;
+  if (!dir && ls && Math.hypot(ls[0], ls[1]) > 0.55) dir = Math.abs(ls[0]) > Math.abs(ls[1]) ? (ls[0] > 0 ? 'RIGHT' : 'LEFT') : (ls[1] > 0 ? 'DOWN' : 'UP');
+  let step = null; if (dir !== PAD.rep.k) { PAD.rep.k = dir; PAD.rep.t = 0.38; step = dir; } else if (dir) { PAD.rep.t -= dt; if (PAD.rep.t <= 0) { PAD.rep.t = 0.11; step = dir; } }
+  if (layer === 'field') {
+    PAD.mv = ls ? [ls[0], -ls[1]] : null;
+    PAD.aim = rs && Math.hypot(rs[0], rs[1]) > 0.3 ? padWorld(rs[0], -rs[1]) : null;
+    PAD.fire = !!B[PB.RT];
+    if (down('A')) padKey('KeyE');
+    if (down('B')) padKey('Escape');
+    if (down('X') || down('VIEW')) padKey('KeyZ');
+    if (down('Y')) padKey('Tab');
+    if (down('MENU')) padKey('KeyI');
+    if (down('LB') || down('RB')) padWeapon(down('RB') ? 1 : -1);
+    for (const k of ['UP', 'DOWN', 'LEFT', 'RIGHT']) if (down(k)) useItem(PAD_ITEM[k]);
+    if (down('L3')) { PAD.zoom = (PAD.zoom + 1) % PAD_ZOOM.length; R.cam.dist = PAD_ZOOM[PAD.zoom]; }
+    return;
+  }
+  PAD.mv = null; PAD.aim = null; PAD.fire = false;
+  if (layer === 'dlg') {
+    if (step === 'UP') padKey('ArrowUp'); else if (step === 'DOWN') padKey('ArrowDown');
+    if (down('A')) padKey('KeyE'); if (down('B')) padKey('Escape');
+    return;
+  }
+  const root = padRoot(layer); if (!root) return; padEnsure(root);
+  const f = PAD.focus, adj = f && (f.tagName === 'SELECT' || (f.tagName === 'INPUT' && f.type === 'range'));
+  if (step) { if (adj && (step === 'LEFT' || step === 'RIGHT')) padAdjust(f, step === 'RIGHT' ? 1 : -1); else padMove(root, step === 'LEFT' ? -1 : step === 'RIGHT' ? 1 : 0, step === 'UP' ? -1 : step === 'DOWN' ? 1 : 0); }
+  if (down('A')) padActivate(PAD.focus);
+  if (down('X')) padActivate(PAD.focus, true);
+  if (down('B')) padBack(layer, root);
+  if (layer === 'menu' && down('MENU')) padKey('KeyI');
+  if (down('LB')) padTabs(root, -1); if (down('RB')) padTabs(root, 1);
+  if (rs && Math.abs(rs[1]) > 0.2 && PAD.focus) padScroll(PAD.focus, rs[1] * 900 * dt);
+}
+// LB・RB：武器の入った次（前）の枠へ持ち替え
+function padWeapon(d) { const L = leader(); if (!L || L.dead) return; const pp = G.save.party[L.i], cur = activeIdx(pp);
+  for (let k = 1; k <= NSLOT; k++) { const i = (cur + d * k + NSLOT * 4) % NSLOT, it = pp.gear[i]; if (it && isWeapon(it)) { switchWeapon(L, i); return; } } }
+function initPad() {
+  if (NATIVE && NATIVE.info && NATIVE.info.deck) setPadMode(true); // Steam Deck は最初からコントローラーの表示で
+  addEventListener('gamepadconnected', () => { if (typeof HUD !== 'undefined') HUD.key = ''; });
+  // マウスを動かす・キーを打つ・画面に触れると、パッドの表示から戻す（ボタンの押し間違いで切り替わらないよう、少し動かしてから）
+  addEventListener('mousemove', e => { if (!PAD.on) return; PAD.mdist += Math.abs(e.movementX || 0) + Math.abs(e.movementY || 0); if (PAD.mdist > 12) { PAD.mdist = 0; setPadMode(false); } }, true);
+  addEventListener('mousedown', e => { if (PAD.on && e.isTrusted) setPadMode(false); }, true);
+  addEventListener('keydown', e => { if (PAD.on && e.isTrusted) setPadMode(false); }, true);
+  addEventListener('pointerdown', e => { if (PAD.on && e.isTrusted && e.pointerType === 'touch') setPadMode(false); }, true);
 }
 
 // ===== タイトル：横から見た冒険の様子を流す =====
@@ -12104,10 +12326,12 @@ function renderTitle(hasSave) {
   el.className = 'ttop';
   el.innerHTML = `<div class="tbox"><div class="logo">RUNEDEEP<span class="tdevb">開発中</span></div><div class="tag2">装備を掘って、組み合わせて、深く潜る。</div>
     <div class="tbtns">${hasSave ? `<button class="pri big" id="cont"><span>つづきから</span><small>${hasSave.reborn ? '深淵から再出発（新しい探索者を登録）' : esc(P ? P.name : '') + '・最高到達 B' + hasSave.maxFloor}</small></button>` : ''}
-      <button class="big${hasSave ? '' : ' pri'}" id="newg"><span>はじめから</span>${hasSave ? '<small>セーブを消して最初から</small>' : ''}</button></div>
+      <button class="big${hasSave ? '' : ' pri'}" id="newg"><span>はじめから</span>${hasSave ? '<small>セーブを消して最初から</small>' : ''}</button>${NATIVE ? '<button class="big quit" id="quitg"><span>ゲームを終了</span></button>' : ''}</div>
     ${TITLE.confirm ? `<div class="tconf"><p>いまのセーブは消えてしまいます。最初から始めますか？</p><div><button class="sm warn" id="yesNew">消して始める</button><button class="sm" id="noNew">やめる</button></div></div>` : ''}
     <div class="tdev"><span>開発中のゲームです。</span><span>内容やバランスは今後変わることがあります</span></div>
-    <div class="thelp">${TOUCH.on || (typeof matchMedia !== 'undefined' && matchMedia('(pointer: coarse)').matches) ? '左側をドラッグで移動・右側をタップで技' : '<kbd>WASD</kbd> 移動　<kbd>クリック</kbd> 技　<kbd>1</kbd>〜<kbd>5</kbd> 持ち替え　<kbd>I</kbd> 装備'}</div></div>`;
+    <div class="thelp">${TOUCH.on || (typeof matchMedia !== 'undefined' && matchMedia('(pointer: coarse)').matches) ? '左側をドラッグで移動・右側をタップで技' : '<span class="kbonly"><kbd>WASD</kbd> 移動　<kbd>クリック</kbd> 技　<kbd>1</kbd>〜<kbd>5</kbd> 持ち替え　<kbd>I</kbd> 装備</span><span class="padonly"><kbd data-pad="LS">L</kbd> 移動　<kbd data-pad="RS">R</kbd><kbd data-pad="RT">RT</kbd> 技　<kbd data-pad="LB">LB</kbd><kbd data-pad="RB">RB</kbd> 持ち替え　<kbd data-pad="MENU">≡</kbd> 装備　<kbd data-pad="A">A</kbd> 決定</span>'}</div></div>`;
+  if (NATIVE && NATIVE.info) el.insertAdjacentHTML('beforeend', `<div class="tver">ver ${esc(NATIVE.info.version)}${NATIVE.info.debug ? '（デバッグ版）' : ''}</div>`); // Steam版：不具合の報告で版がわかるように
+  const qg = $('#quitg'); if (qg) qg.onclick = () => { SFX.play('ui'); quitGame(); };
   const ct = $('#cont'); if (ct) ct.onclick = () => { SFX.init(); SFX.play('ui'); G.save = fixSave(hasSave); if (G.save.reborn || !G.save.party.length) renderReborn(); else startRun(); };
   $('#newg').onclick = () => { SFX.init(); SFX.play('ui'); if (hasSave && !TITLE.confirm) { TITLE.confirm = true; renderTitle(hasSave); return; } startCreate(); };
   const y = $('#yesNew'); if (y) y.onclick = () => { SFX.play('ui'); startCreate(); };
@@ -12130,8 +12354,8 @@ function titleMusic(sv) {
 
 // ===== 起動・入力・ループ =====
 const SAVE_KEY = 'runedeep_save_v1';
-function saveGame() { if (!G.save) return; if (typeof dexScan === 'function') dexScan(); if (G.run && G.run.members && G.run.leader >= 0) G.save.lead = G.run.leader; /* 操作中のキャラ（隊列の先頭）も覚えておく */ try { localStorage.setItem(SAVE_KEY, JSON.stringify(G.save)); } catch (e) { } }
-function loadSave() { try { const s = localStorage.getItem(SAVE_KEY); if (!s) return null; const o = JSON.parse(s); return o && o.party && (o.party.length >= 1 || o.reborn) ? migrateKnight(o) : null; } catch (e) { return null; } }
+function saveGame() { if (!G.save) return; if (typeof dexScan === 'function') dexScan(); if (G.run && G.run.members && G.run.leader >= 0) G.save.lead = G.run.leader; /* 操作中のキャラ（隊列の先頭）も覚えておく */ try { STORE.set(SAVE_KEY, JSON.stringify(G.save)); } catch (e) { } }
+function loadSave() { try { const s = STORE.get(SAVE_KEY); if (!s) return null; const o = JSON.parse(s); return o && o.party && (o.party.length >= 1 || o.reborn) ? migrateKnight(o) : null; } catch (e) { return null; } }
 
 function startRun() {
   fixSave(G.save);
@@ -12164,7 +12388,7 @@ function audioGate(after) {
 }
 function boot(data) {
   const cv = $('#cv');
-  try { R.init(cv); VX.build(); try { R.warm(); } catch (e) {} } catch (e) { console.error(e); $('#title').innerHTML = '<div class="tt"><div class="logo">RUNEDEEP</div><p class="err">このブラウザでは3D表示(WebGL2)が使えないため起動できません。Chrome・Edge・Firefox・Safariの最新版でお試しください。</p></div>'; return; }
+  try { R.init(cv); VX.build(); try { R.warm(); } catch (e) {} } catch (e) { console.error(e); $('#title').innerHTML = '<div class="tt"><div class="logo">RUNEDEEP</div><p class="err">' + (NATIVE ? 'このパソコンでは3D表示(WebGL2)が使えないため起動できません。グラフィックドライバーを最新にしてお試しください。' : 'このブラウザでは3D表示(WebGL2)が使えないため起動できません。Chrome・Edge・Firefox・Safariの最新版でお試しください。') + '</p></div>'; return; }
   OV.layer = $('#ov'); audioGate();
   const hot = data && data.save;
   const sv = hot || loadSave();
@@ -12199,7 +12423,7 @@ function boot(data) {
   $('#prompt').onclick = interact;
   $('#mmw').onclick = () => { if (G.run && !G.menu) toggleBigMap(); };
   $('#lead').onclick = () => { if (TOUCH.on) cycleLeader(); };
-  initTouch(cv);
+  initTouch(cv); initPad();
   if (window.claude && window.claude.hot && window.claude.hot.snapshot) { try { window.claude.hot.snapshot(() => ({ save: G.save })); } catch (e) { } }
   let last = performance.now(), saveT = 20;
   const loop = now => {
@@ -12208,6 +12432,7 @@ function boot(data) {
     requestAnimationFrame(loop);
     // どこかでエラーが出ても画面が止まらないよう、段階ごとに分けて続行する
     const safe = f => { try { f(); } catch (err) { console.error(err); } };
+    safe(() => padFrame(dt)); // ゲームパッド
     if (G.run) {
       if (!G.menu) safe(() => update(dt)); pt1 = performance.now();
       safe(() => drawWorld(dt)); safe(() => postFx(dt)); safe(flushHpBars); safe(() => R.render()); pt2 = performance.now(); safe(() => drawOverlay(G.menu ? 0 : dt)); safe(() => updateHud(dt)); safe(updateTouchHud);
